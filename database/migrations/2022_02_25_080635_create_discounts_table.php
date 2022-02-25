@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
+            $table->foreignId('product_id')->constrained('products');
             $table->float('percentage');
             $table->dateTime('start');
-            $table->dateTime('end'); 
+            $table->dateTime('end');
             $table->timestamps();
         });
     }

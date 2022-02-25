@@ -22,10 +22,10 @@ return new class extends Migration
             $table->bigInteger('total');
             $table->bigInteger('shipping_cost');
             $table->bigInteger('sub_total');
-            $table->foreignId('user_id');
-            $table->foreignId('courier_id');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('courier_id')->constrained('couriers');
             $table->string('proof_of_payment');
-            $table->enum('status', ['Berhasil','Tidak Berhasil','Dibatalkan','Belum Terbayar']);
+            $table->enum('status', ['Berhasil', 'Tidak Berhasil', 'Dibatalkan', 'Belum Terbayar']);
             $table->timestamps();
         });
     }

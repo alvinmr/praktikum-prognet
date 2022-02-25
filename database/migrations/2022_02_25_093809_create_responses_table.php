@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('review_id');
-            $table->foreignId('admin_id');
+            $table->foreignId('review_id')->constrained('product_reviews');
+            $table->foreignId('admin_id')->constrained('admins');
             $table->integer('content');
             $table->timestamps();
         });

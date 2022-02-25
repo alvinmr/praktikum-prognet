@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('product_id');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('product_id')->constrained('products');
             $table->integer('qty');
-            $table->enum('status',['Checkout','Dalam Keranjang']);
+            $table->enum('status', ['Checkout', 'Dalam Keranjang']);
             $table->timestamps();
         });
     }
