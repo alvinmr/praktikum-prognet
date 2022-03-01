@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'admin.dashboard.index')->name('index');
-Route::view('login', 'admin.auth.login')->name('login');
+// prefix admin
+Route::prefix('admin')->group(function () {
+    Route::view('/', 'admin.dashboard.index')->name('index');
+    Route::view('login', 'admin.auth.login')->name('login');
+});
+
+Route::get('/', function () {
+    return view('user.home.index');
+})->middleware('verified');
+
+Route::get('login', function () {
+    return view('user.auth.login');
+});
+
+Auth::routes(['verify' => true]);
