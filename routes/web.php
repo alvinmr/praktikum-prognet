@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->name('admin.')->group(function () {
     // Ini route yang bisa diakses kalo udah login dari admin
     Route::middleware('auth:admin')->group(function () {
-        Route::view('/', 'admin.dashboard.index')->name('index');
+        Route::view('/dashboard', 'admin.dashboard.index')->name('index');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     });
     // Ini route yang bisa diakses kalo udah belom login admin, kalo udah login gabisa akses route ini
