@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// prefix admin
-Route::prefix('admin')->group(function () {
+// route admin
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::view('/', 'admin.dashboard.index')->name('index');
     Route::view('login', 'admin.auth.login')->name('login');
 });
 
+
+// route user
 Route::get('/', function () {
     return view('user.home.index');
-})->middleware('verified');
-
-Route::get('login', function () {
-    return view('user.auth.login');
-});
+})->name('home');
+Route::view('auth', 'user.auth.index')->name('auth');
 
 Auth::routes(['verify' => true]);

@@ -13,19 +13,27 @@
                         <ul class="list-inline mb-0">
                             <li
                                 class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
-                                <a href="#" class="u-header-topbar__nav-link"><i class="ec ec-map-pointer mr-1"></i>
-                                    Store Locator</a>
-                            </li>
-                            <li
-                                class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                 <!-- Account Sidebar Toggle Button -->
-                                @auth
-                                <a id="sidebarNavToggler" href="javascript:;" class="u-header-topbar__nav-link">
+                                @guest
+                                <a id="sidebarNavToggler" href="{{ route('auth') }}" class="u-header-topbar__nav-link">
                                     <i class="ec ec-user mr-1">
                                     </i> Register <span class="text-gray-50">or</span> Sign in
                                 </a>
-                                @endauth
-                                <!-- End Account Sidebar Toggle Button -->
+                                @endguest
+                                @auth
+                                <a id="sidebarNavToggler" href="javascript:;" class="u-header-topbar__nav-link">
+                                    <i class="ec ec-user mr-1">
+                                    </i> {{ auth()->user()->name }}
+                                </a>
+                                <form action="{{ route('logout') }}" method="POST" id="form-logout">
+                                    @csrf
+                                </form>
+                            <li class="list-inline-item  u-header-topbar__nav-item-border">
+                                <a href="#" class=""
+                                    onclick="document.getElementById('form-logout').submit()">Logout</a>
+                            </li>
+                            @endauth
+                            <!-- End Account Sidebar Toggle Button -->
                             </li>
                         </ul>
                     </div>
@@ -45,7 +53,7 @@
                             class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
                             <!-- Logo -->
                             <a class="order-1 order-xl-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-center"
-                                href="../home/index.html" aria-label="Electro">
+                                href="{{ route('home') }}" aria-label="Electro">
                                 <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px"
                                     viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52"
                                     style="margin-bottom: 0;">

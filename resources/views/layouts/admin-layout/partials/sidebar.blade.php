@@ -8,7 +8,7 @@
                                 aria-hidden="true"></i></div>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="{{ route('index') }}" target="_blank"><i
+                        <a class="nav-link menu-title" href="{{ route('admin.index') }}" target="_blank"><i
                                 data-feather="home"></i><span>Dashboard</span></a>
                     </li>
                     <li class="dropdown">
@@ -21,7 +21,7 @@
                                 </a>
                                 <ul class="nav-sub-childmenu submenu-content"
                                     style="display: {{ in_array(Route::currentRouteName(), ['index', 'layout-dark']) ? 'block' : 'none' }};">
-                                    <li><a href="{{ route('index') }}" class="{{ routeActive('index') }}">Layout
+                                    <li><a href="{{ route('admin.index') }}" class="{{ routeActive('index') }}">Layout
                                             Light</a></li>
                                     <li><a href="#" class="{{ routeActive('layout-dark') }}">Layout Dark</a></li>
                                 </ul>
