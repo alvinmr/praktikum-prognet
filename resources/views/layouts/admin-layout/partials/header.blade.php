@@ -13,8 +13,11 @@
                 <li>
                     <div class="mode"><i class="fa fa-moon-o"></i></div>
                 </li>
+                <form action="{{ route('admin.logout') }}" method="POST" id="form-logout">@csrf</form>
                 <li class="onhover-dropdown p-0">
-                    <button class="btn btn-primary-light" type="button"><i data-feather="log-out"></i>Log out</button>
+                    <button class="btn btn-primary-light" type="button"
+                        onclick="document.getElementById('form-logout').submit()"><i data-feather="log-out"></i>Log
+                        out</button>
                 </li>
             </ul>
         </div>

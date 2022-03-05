@@ -15,7 +15,7 @@
                                 class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                 <!-- Account Sidebar Toggle Button -->
                                 @guest
-                                <a id="sidebarNavToggler" href="{{ route('auth') }}" class="u-header-topbar__nav-link">
+                                <a id="sidebarNavToggler" href="{{ route('login') }}" class="u-header-topbar__nav-link">
                                     <i class="ec ec-user mr-1">
                                     </i> Register <span class="text-gray-50">or</span> Sign in
                                 </a>

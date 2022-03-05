@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,15 +17,28 @@ use Illuminate\Support\Facades\Route;
 
 // route admin
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::view('/', 'admin.dashboard.index')->name('index');
-    Route::view('login', 'admin.auth.login')->name('login');
+    // Ini route yang bisa diakses kalo udah login dari admin
+    Route::middleware('auth:admin')->group(function () {
+        Route::view('/', 'admin.dashboard.index')->name('index');
+        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    });
+    // Ini route yang bisa diakses kalo udah belom login admin, kalo udah login gabisa akses route ini
+    Route::middleware('guest:admin')->group(function () {
+        Route::view('login', 'admin.auth.login')->name('login');
+        Route::post('login', [LoginController::class, 'login'])->name('login');
+    });
 });
 
 
 // route user
-Route::get('/', function () {
-    return view('user.home.index');
-})->name('home');
-Route::view('auth', 'user.auth.index')->name('auth');
+// Ini route yang bisa diakses kalo udah login dari user
+Route::middleware('auth')->group(function () {
+    Route::view('/', 'user.home.index')->name('home');
+});
+// Ini route yang bisa diakses kalo udah belom login user, kalo udah login gabisa akses route ini
+Route::middleware('guest')->group(function () {
+    Route::view('login', 'user.auth.login')->name('login');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+});
 
 Auth::routes(['verify' => true]);
