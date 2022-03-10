@@ -12,6 +12,10 @@
                                 data-feather="home"></i><span>Dashboard</span></a>
                     </li>
                     <li class="dropdown">
+                        <a class="nav-link menu-title" href="{{ route('admin.index') }}" target="_blank"><i
+                                data-feather="bell"></i><span>Crud</span></a>
+                    </li>
+                    <li class="dropdown">
                         <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
                                 data-feather="anchor"></i><span>Starter kit</span></a>
                         <ul class="nav-submenu menu-content" style="display: {{ prefixBlock('/starter-kit') }};">
