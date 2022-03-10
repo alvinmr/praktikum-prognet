@@ -5,7 +5,6 @@
     <!-- Shop-control-bar Title -->
     <div class="flex-center-between mb-3 mt-10">
         <h3 class="font-size-25 mb-0">Shop</h3>
-        <p class="font-size-14 text-gray-90 mb-0">Showing 1–25 of 56 results</p>
     </div>
     <!-- End shop-control-bar Title -->
     <!-- Shop-control-bar -->
@@ -98,7 +97,7 @@
     <ul class="row list-unstyled products-group no-gutters">
 
         @foreach ($products as $product)
-        <li class="col-6 col-md-3 col-xl-2 product-item">
+        <li class="col-6 col-md-3 col-xl-3 product-item">
             <div class="product-item__outer h-100">
                 <div class="product-item__inner px-xl-4 p-3">
                     <div class="product-item__body pb-xl-2">
