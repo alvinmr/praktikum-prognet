@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +32,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 // route user
+// Route::view('/', 'user.home.index')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Ini route yang bisa diakses kalo udah login dari user
 Route::middleware('auth')->group(function () {
-    Route::view('/', 'user.home.index')->name('home');
+    Route::view('product', 'user.product.show')->name('product');
 });
 // Ini route yang bisa diakses kalo udah belom login user, kalo udah login gabisa akses route ini
 Route::middleware('guest')->group(function () {
