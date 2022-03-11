@@ -33,6 +33,8 @@
 
         <!-- CSS Electro Template -->
         <link rel="stylesheet" href="{{ asset('assets_user/css/theme.css') }}">
+
+        @livewireStyles
     </head>
 
     <body>
@@ -702,6 +704,8 @@
                 $.HSCore.components.HSSelectPicker.init('.js-select');
             });
         </script>
+
+        @livewireScripts
     </body>
 
 </html>
