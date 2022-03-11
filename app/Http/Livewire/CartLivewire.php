@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+
+class CartLivewire extends Component
+{
+    public $price_total = 0;
+    public $cart_count = 0;
+
+    protected $listeners = [
+        'addedToCart' => 'countCart',
+    ];
+
+    public function render()
+    {
+        if (auth()->check()) {
+            $this->countCart();
+        }
+        return view('livewire.cart');
+    }
+
+    public function countCart()
+    {
+        $cart = Cart::with('product')->whereUserId(Auth::user()->id)->get();
+        $this->price_total = 0;
+        foreach ($cart as $item) {
+            $this->price_total += $item->product->price * $item->qty;
+        }
+        $this->cart_count = $cart->count();
+    }
+}
