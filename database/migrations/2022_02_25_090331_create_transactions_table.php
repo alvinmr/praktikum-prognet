@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('timeout');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('regency');
             $table->string('province');
             $table->bigInteger('total');
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->bigInteger('sub_total');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('courier_id')->constrained('couriers');
-            $table->string('proof_of_payment');
-            $table->enum('status', ['Berhasil', 'Tidak Berhasil', 'Dibatalkan', 'Belum Terbayar']);
+            $table->string('proof_of_payment')->nullable();
+            $table->enum('status', ['Telah Sampai', 'Dalam Pengiriman', 'Dibatalkan', 'Belum Terbayar', 'Pending', 'Expired']);
             $table->timestamps();
         });
     }
