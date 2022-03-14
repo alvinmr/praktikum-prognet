@@ -9,6 +9,14 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function getRateAttribute()
+    {
+        if ($this->reviews->count() > 0) {
+            return $this->reviews->avg('rate');
+        }
+        return 0;
+    }
+
     public function categories()
     {
         return $this->belongsToMany(ProductCategory::class, 'product_category_details', 'product_id', 'category_id');

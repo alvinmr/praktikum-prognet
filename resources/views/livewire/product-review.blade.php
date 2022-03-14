@@ -1,0 +1,42 @@
+<div>
+    @if ($transaction->isNotEmpty())
+        <div>
+            <div class="text-center">
+                <h1>Product Review</h1>
+                <p>Please review your product</p>
+            </div>
+
+            @foreach ($transaction as $product)
+                <div class="card d-flex m-5">
+                    <div class="card-body d-flex flex-row">
+                        <div class="col-2">
+                            <img src="{{ $product->images[0]->image_name }}" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-10">
+                            <h5 class="card-title">{{ $product->product_name }}</h5>
+                            {{-- Product rating --}}
+                            <div class="mb-2">
+                                <span class="d-inline-flex align-items-center small font-size-15 text-lh-1">
+                                    <div class="text-warning mr-2">
+                                        @for ($i = 0; $i < $product->rate; $i++)
+                                            <small class="fas fa-star"></small>
+                                        @endfor
+                                        @for ($i = 0; $i < 5 - $product->rate; $i++)
+                                            <small class="far fa-star text-muted"></small>
+                                        @endfor
+                                    </div>
+                                    <span class="text-secondary font-size-13">({{ $product->reviews->count() }}
+                                        customer reviews)</span>
+                                </span>
+                            </div>
+                            <p class="card-text font-weight-bold">Rp.
+                                {{ number_format($product->price, 2, ',', '.') }}</p>
+                            <a href="{{ route('product.show', $product->id) }}" class="btn btn-primary">Review
+                                Product</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>

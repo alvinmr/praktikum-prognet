@@ -13,6 +13,9 @@ class CartLivewire extends Component
 
     protected $listeners = [
         'addedToCart' => 'countCart',
+        'itemIncremented' => 'countCart',
+        'itemDecremented' => 'countCart',
+        'itemDeleted' => 'countCart',
     ];
 
     public function render()
@@ -25,7 +28,7 @@ class CartLivewire extends Component
 
     public function countCart()
     {
-        $cart = Cart::with('product')->whereUserId(Auth::user()->id)->get();
+        $cart = Cart::with('product')->whereUserId(Auth::user()->id)->whereStatus('Dalam Keranjang')->get();
         $this->price_total = 0;
         foreach ($cart as $item) {
             $this->price_total += $item->product->price * $item->qty;

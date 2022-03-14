@@ -28,7 +28,7 @@
                     <div class="d-flex">
                         <ul class="d-flex list-unstyled mb-0">
                             <li class="col pr-0">
-                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex "
+                                <a href="{{ route('cart') }}" class="text-gray-90 position-relative d-flex "
                                     data-toggle="tooltip" data-placement="top" title="Cart">
                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                     @auth()
