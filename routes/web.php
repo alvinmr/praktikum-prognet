@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +38,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Ini route yang bisa diakses kalo udah login dari user
 Route::middleware('auth')->group(function () {
+    Route::view('cart', 'user.cart.index')->name('cart');
+    Route::get('product/{product}', [ProductController::class, 'show'])->name('product.show');
+    Route::get('product/{product}/buy-now', [ProductController::class, 'buyNow'])->name('product.buynow');
+    Route::post('product/{product}/review', [ProductController::class, 'storeReview'])->name('review.store');
     Route::view('product', 'user.product.show')->name('product');
+    Route::view('checkout', 'user.transaction.checkout')->name('checkout');
+    Route::get('payment/{transaction}', [TransactionController::class, 'payment'])->name('payment');
+    Route::post('payment/{transaction}/proof_payment', [TransactionController::class, 'uploadProofPayment'])->name('proof_payment');
 });
 // Ini route yang bisa diakses kalo udah belom login user, kalo udah login gabisa akses route ini
 Route::middleware('guest')->group(function () {
