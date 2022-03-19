@@ -12,8 +12,16 @@
                                 data-feather="home"></i><span>Dashboard</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="{{ route('admin.index') }}" target="_blank"><i
-                                data-feather="bell"></i><span>Crud</span></a>
+                        <a class="nav-link menu-title" href="{{ route('admin.product.index') }}"><i
+                                data-feather="gift"></i><span>Product CRUD</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link menu-title" href="{{ route('admin.product.index') }}"><i
+                                data-feather="truck"></i><span>Courier CRUD</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link menu-title" href="{{ route('admin.product.index') }}"><i
+                                data-feather="package"></i><span>Product Categories CRUD</span></a>
                     </li>
                     <li class="dropdown">
                         <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
