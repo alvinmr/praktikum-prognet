@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
@@ -24,6 +25,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index')->name('index');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+        Route::resource('/product',ProductController::class);
+
+        // Route::view('/product', 'admin.product.index')->name('product.index');
+        // Route::view('/product/create', 'admin.product.create')->name('product.create');
+        // Route::view('/product/show', 'admin.product.show')->name('product.show');
+
+
     });
     // Ini route yang bisa diakses kalo udah belom login admin, kalo udah login gabisa akses route ini
     Route::middleware('guest:admin')->group(function () {

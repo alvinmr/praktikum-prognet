@@ -21,6 +21,7 @@
         rel="stylesheet">
     <!-- Font Awesome-->
     @includeIf('layouts.admin-layout.partials.css')
+    @livewireStyles
 </head>
 
 <body>
@@ -78,6 +79,7 @@
     </script>
 
     @includeIf('layouts.admin-layout.partials.js')
+    @livewireScripts
 
 </body>
 
