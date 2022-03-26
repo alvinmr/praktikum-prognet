@@ -35,13 +35,17 @@
                             <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">Headphones</a>
                             <h2 class="font-size-25 text-lh-1dot2">{{ $product->product_name }}</h2>
                             <div class="mb-2">
+                                {{ round($product->rate, 1) }}
                                 <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="#">
                                     <div class="text-warning mr-2">
-                                        @for ($i = 0; $i < round($product->rate); $i++)
-                                            <small class="fas fa-star"></small>
-                                        @endfor
-                                        @for ($i = 0; $i < 5 - round($product->rate); $i++)
-                                            <small class="far fa-star text-muted"></small>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= round($product->rate, 1))
+                                                <small class="fas fa-star"></small>
+                                            @elseif($i - round($product->rate, 1) < 1)
+                                                <small class="fas fa-star-half"></small>
+                                            @else
+                                                <small class="far fa-star text-muted"></small>
+                                            @endif
                                         @endfor
                                     </div>
                                     <span class="text-secondary font-size-13">({{ $product->reviews->count() }} customer

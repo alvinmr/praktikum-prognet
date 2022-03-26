@@ -16,13 +16,17 @@
                             <h5 class="card-title">{{ $product->product_name }}</h5>
                             {{-- Product rating --}}
                             <div class="mb-2">
+                                <span class="font-weight-bold">{{ $product->rate }}</span>
                                 <span class="d-inline-flex align-items-center small font-size-15 text-lh-1">
                                     <div class="text-warning mr-2">
-                                        @for ($i = 0; $i < $product->rate; $i++)
-                                            <small class="fas fa-star"></small>
-                                        @endfor
-                                        @for ($i = 0; $i < 5 - $product->rate; $i++)
-                                            <small class="far fa-star text-muted"></small>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= round($product->rate, 1))
+                                                <small class="fas fa-star"></small>
+                                            @elseif($i - round($product->rate, 1) < 1)
+                                                <small class="fas fa-star-half"></small>
+                                            @else
+                                                <small class="far fa-star text-muted"></small>
+                                            @endif
                                         @endfor
                                     </div>
                                     <span class="text-secondary font-size-13">({{ $product->reviews->count() }}
