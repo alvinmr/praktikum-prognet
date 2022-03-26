@@ -105,6 +105,7 @@ class ProductBuyNowLivewire extends Component
             'selling_price' => $this->product->price * (1 - 0 / 100)
         ]);
         $this->product->stock -= $this->qty;
+        $this->product->save();
 
         return redirect()->route('payment', $trx->id);
     }

@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function getRateAttribute()
     {
         if ($this->reviews->count() > 0) {

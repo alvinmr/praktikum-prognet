@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index')->name('index');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-        Route::resource('/product',ProductController::class);
+        Route::resource('/product', ProductController::class);
 
         // Route::view('/product', 'admin.product.index')->name('product.index');
         // Route::view('/product/create', 'admin.product.create')->name('product.create');
@@ -48,9 +48,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Ini route yang bisa diakses kalo udah login dari user
 Route::middleware('auth')->group(function () {
     Route::view('cart', 'user.cart.index')->name('cart');
-    Route::get('product/{product}', [ProductController::class, 'show'])->name('product.show');
-    Route::get('product/{product}/buy-now', [ProductController::class, 'buyNow'])->name('product.buynow');
-    Route::post('product/{product}/review', [ProductController::class, 'storeReview'])->name('review.store');
+    Route::get('product/{product}', [ProductUserController::class, 'show'])->name('product.show');
+    Route::get('product/{product}/buy-now', [ProductUserController::class, 'buyNow'])->name('product.buynow');
+    Route::post('product/{product}/review', [ProductUserController::class, 'storeReview'])->name('review.store');
     Route::view('product', 'user.product.show')->name('product');
     Route::view('checkout', 'user.transaction.checkout')->name('checkout');
     Route::get('payment/{transaction}', [TransactionController::class, 'payment'])->name('payment');
