@@ -20,7 +20,7 @@
                                 data-feather="truck"></i><span>Courier CRUD</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="{{ route('admin.product.index') }}"><i
+                        <a class="nav-link menu-title" href="{{ route('admin.productcategory.index') }}"><i
                                 data-feather="package"></i><span>Product Categories CRUD</span></a>
                     </li>
                     <li class="dropdown">

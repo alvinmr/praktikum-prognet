@@ -32,7 +32,7 @@ Product Master
                                 <td>{{$data->product_name}}</td>
                             </tr>
                             <tr>
-                                <th>Description</th>
+                                <th>Category</th>
                                 <td>{{$data->description}}</td>
                             </tr>
                             <tr>
@@ -48,7 +48,11 @@ Product Master
                                 <td>{{$data->weight}}</td>
                             </tr>
                             <tr>
-                                <th>Foto Kamar</th>
+                                <th>Description</th>
+                                <td>{{$data->description}}</td>
+                            </tr>
+                            <tr>
+                                <th>Foto Product</th>
                                 <td> <img width="100"   src="{{ $data->images[0]->image_name }}"/> </td>
                             </tr>
                         </table>

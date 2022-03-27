@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
         Route::resource('/product',ProductController::class);
+        Route::resource('/productcategory',ProductCategoryController::class);
+
 
         // Route::view('/product', 'admin.product.index')->name('product.index');
         // Route::view('/product/create', 'admin.product.create')->name('product.create');
