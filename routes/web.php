@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductResourceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\TransactionController;
@@ -26,7 +27,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index')->name('index');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-        Route::resource('/product', ProductController::class);
+        Route::resource('/product', ProductResourceController::class);
+        Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
+        Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
 
         // Route::view('/product', 'admin.product.index')->name('product.index');
         // Route::view('/product/create', 'admin.product.create')->name('product.create');

@@ -43,4 +43,12 @@ class Product extends Model
     {
         return $this->hasOne(Product::class);
     }
+
+    public function getImageAttribute()
+    {
+        if ($this->images->count() > 0) {
+            return $this->images->first()->image_name;
+        }
+        return 'https://via.placeholder.com/150';
+    }
 }

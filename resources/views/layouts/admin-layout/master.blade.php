@@ -65,8 +65,10 @@
     </div>
     <!-- latest jquery-->
 
+
     <script type="text/javascript">
         // localStorage.clear();
+
         var div = document.querySelector("div.page-wrapper")
         if (div.classList.contains('compact-sidebar')) {
             div.classList.remove("compact-sidebar");
@@ -76,6 +78,8 @@
         }
         localStorage.setItem('page-wrapper', 'page-wrapper compact-wrapper compact-sidebar');
         localStorage.setItem('page-body-wrapper', 'sidebar-icon');
+        var body = document.body;
+        body.classList.add("dark-only");
     </script>
 
     @includeIf('layouts.admin-layout.partials.js')
