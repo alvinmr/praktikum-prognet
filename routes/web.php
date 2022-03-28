@@ -31,7 +31,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/product', ProductResourceController::class);
         Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
         Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
-        Route::resource('/product', ProductController::class);
         Route::resource('/productcategory', ProductCategoryController::class);
 
 
