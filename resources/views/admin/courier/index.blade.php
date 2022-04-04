@@ -1,7 +1,7 @@
 @extends('layouts.admin-layout.master')
 
 @section('title')
-    Product Master
+    Courier Master
     {{ $title }}
 @endsection
 
@@ -13,7 +13,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('breadcrumb_title')
-            <h3>Product Master</h3>
+            <h3>Courier Master</h3>
         @endslot
     @endcomponent
 
@@ -22,9 +22,9 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Data Product</h5>
-                        <a href="{{ url('admin/product/create') }}" class="float-right btn btn-success btn-sm">Add
-                            Product!</a>
+                        <h5>Data Courier</h5>
+                        <a href="{{ url('admin/courier/create') }}" class="float-right btn btn-success btn-sm">Add
+                            Courier!</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -32,28 +32,22 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Jenis</th>
-                                        <th>Stok</th>
-                                        <th>Gambar</th>
+                                        <th>Courier</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @foreach ($couriers as $courier)
                                         <tr>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->product_name }}</td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->stock }}</td>
-                                            <td> <img width="100" src="{{ $product->image }}" /> </td>
+                                            <td>{{ $courier->id }}</td>
+                                            <td>{{ $courier->courier }}</td>
                                             <td>
-                                                <a href="{{ url('admin/product/' . $product->id) }}"
+                                                <a href="{{ url('admin/courier/' . $courier->id) }}"
                                                     class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ url('admin/product/' . $product->id . '/edit') }}"
+                                                <a href="{{ url('admin/courier/' . $courier->id . '/edit') }}"
                                                     class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a onclick="return confirm('Apakah anda yakin untuk menghapus data product?')"
-                                                    href="{{ url('admin/product/' . $product->id . '/delete') }}"
+                                                <a onclick="return confirm('Apakah anda yakin untuk menghapus data courier?')"
+                                                    href="{{ url('admin/courier/' . $courier->id . '/delete') }}"
                                                     class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

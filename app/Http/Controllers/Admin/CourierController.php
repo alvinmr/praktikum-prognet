@@ -1,29 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Courier;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductCategoryDetail;
-
-class ProductCategoryController extends Controller
+class CourierController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-   
-    // public $data;
-
     public function index()
     {
-        // $this->data = ProductCategory::latest()->get();
-        $categories=ProductCategory::all();
-        return view('admin.productcategory.index', compact('categories'));
+        $couriers = Courier::all();
+        return view('admin.courier.index', compact('couriers'));
     }
 
     /**
@@ -33,7 +26,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.productcategory.create');
+        return view('admin.courier.create');
     }
 
     /**
@@ -44,11 +37,11 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = ProductCategory::create([
-            'category_name' => $request->name,
+        $courier = Courier::create([
+            'courier' => $request->name,
         ]);
 
-        return view('admin/productcategory/create');
+        return view('admin/courier/create');
     }
 
     /**
@@ -59,8 +52,8 @@ class ProductCategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = ProductCategory::find($id);
-        return view('admin.productcategory.show', compact('categories'));
+        $courier = Courier::find($id);
+        return view('admin.courier.show', compact('courier'));
     }
 
     /**
@@ -71,7 +64,8 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $courier = Courier::find($id);
+        return view('admin.courier.edit', compact('courier'));
     }
 
     /**
@@ -83,7 +77,15 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $courier = Courier::find($id)([
+        //     'courier' => $request->name,
+        // ]);
+
+        $data=Courier::find($id);
+        $data->courier=$request->name;
+        $data->save();
+
+        return
     }
 
     /**

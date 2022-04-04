@@ -102,7 +102,8 @@ class ProductResourceController extends Controller
     public function edit($id)
     {
         $data = Product::find($id);
-        return view('admin.product.edit', compact('data'));
+        $categories = ProductCategory::all();
+        return view('admin.product.edit', compact('data', 'categories'));
     }
 
     /**
@@ -125,7 +126,8 @@ class ProductResourceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::where('id',$id)->delete();
+        return redirect('admin/product')->with('success','Data telah dihapus');
     }
 
     public function uploadImage(Request $request)

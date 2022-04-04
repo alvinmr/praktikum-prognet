@@ -8,7 +8,7 @@
                                 aria-hidden="true"></i></div>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="{{ route('admin.index') }}" target="_blank"><i
+                        <a class="nav-link menu-title" href="{{ route('admin.index') }}"><i
                                 data-feather="home"></i><span>Dashboard</span></a>
                     </li>
                     <li class="dropdown">
@@ -16,7 +16,7 @@
                                 data-feather="gift"></i><span>Product CRUD</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="{{ route('admin.product.index') }}"><i
+                        <a class="nav-link menu-title" href="{{ route('admin.courier.index') }}"><i
                                 data-feather="truck"></i><span>Courier CRUD</span></a>
                     </li>
                     <li class="dropdown">

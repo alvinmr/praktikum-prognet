@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductResourceController;
+use App\Http\Controllers\Admin\CourierController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductUserController;
@@ -31,16 +32,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/product', ProductResourceController::class);
         Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
         Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
+
         Route::resource('/productcategory', ProductCategoryController::class);
 
-
-        // Route::view('/product', 'admin.product.index')->name('product.index');
-        // Route::view('/product/create', 'admin.product.create')->name('product.create');
-        // Route::view('/product/show', 'admin.product.show')->name('product.show');
-
+        Route::resource('/courier', CourierController::class);
 
     });
-    // Ini route yang bisa diakses kalo udah belom login admin, kalo udah login gabisa akses route ini
+    // Ini route yang bisa diakses kalo belom login admin, kalo udah login gabisa akses route ini
     Route::middleware('guest:admin')->group(function () {
         Route::view('login', 'admin.auth.login')->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('login');
