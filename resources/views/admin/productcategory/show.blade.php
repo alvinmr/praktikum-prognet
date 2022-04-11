@@ -26,12 +26,12 @@ Product Category Master
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" > 
-                            <tr>
-                                <th>Product Category Name</th>
-                                <td>{{$categories->category_name}}</td>
-                            </tr>
-                        </table>
+                        <div class="form-group">
+                            <label class="col-md-12">Product Category Name</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" id="courier" name="courier" value="{{ $categories->category_name }}" readonly>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -33,20 +33,18 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
-                                        <th>Jenis</th>
+                                        <th>Harga</th>
                                         <th>Stok</th>
-                                        <th>Gambar</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($products as $product)
                                         <tr>
-                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $product->product_name }}</td>
-                                            <td>{{ $product->price }}</td>
+                                            <td>Rp.{{ $product->price }}</td>
                                             <td>{{ $product->stock }}</td>
-                                            <td> <img width="100" src="{{ $product->image }}" /> </td>
                                             <td>
                                                 <a href="{{ url('admin/product/' . $product->id) }}"
                                                     class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>

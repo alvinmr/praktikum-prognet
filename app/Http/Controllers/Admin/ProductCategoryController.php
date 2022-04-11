@@ -44,11 +44,13 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = ProductCategory::create([
-            'category_name' => $request->name,
+        $validatedData = $request->validate([
+            'category_name' => 'required'
         ]);
 
-        return view('admin/productcategory/create');
+        ProductCategory::create($validatedData);
+
+        return redirect('/admin/productcategory')->with('success','Data product category berhasil ditambah.');
     }
 
     /**
@@ -71,7 +73,9 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = ProductCategory::find($id);
+        return view('admin.productcategory.edit', compact('categories'));
+
     }
 
     /**
@@ -83,7 +87,13 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'category_name' => 'required',
+        ]);
+
+        ProductCategory::find($id);
+        ProductCategory::where('id',$id)->update($validatedData);
+        return redirect('/admin/productcategory')->with('success','Data product category berhasil diupdate.');
     }
 
     /**
@@ -94,6 +104,7 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProductCategory::where('id',$id)->delete();
+        return redirect('/admin/productcategory')->with('success','Data product category telah dihapus');
     }
 }

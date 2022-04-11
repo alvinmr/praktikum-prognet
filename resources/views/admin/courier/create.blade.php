@@ -29,21 +29,25 @@
                         <div class="table-responsive">
                             <form method="post" enctype="multipart/form-data" action="{{ route('admin.courier.store') }}">
                                 @csrf
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th>Courier Name</th>
-                                        <td><input name="name" type="text" class="form-control" /> </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="submit" class="btn btn-primary" />
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="form-group">
+                                    <label class="col-md-12">Courier Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line @error('courier') is-invalid @enderror" id="courier" name="courier" value="{{ old('courier') }}">
+                                        @error('courier')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success text-white">Add Courier</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

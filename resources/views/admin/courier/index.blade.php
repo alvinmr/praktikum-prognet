@@ -39,7 +39,7 @@
                                 <tbody>
                                     @foreach ($couriers as $courier)
                                         <tr>
-                                            <td>{{ $courier->id }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $courier->courier }}</td>
                                             <td>
                                                 <a href="{{ url('admin/courier/' . $courier->id) }}"

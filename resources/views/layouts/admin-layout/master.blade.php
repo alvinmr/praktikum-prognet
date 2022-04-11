@@ -42,6 +42,11 @@
             <!-- Page Sidebar Ends-->
             <div class="page-body">
                 <!-- Container-fluid starts-->
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                        <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 @yield('content')
                 <!-- Container-fluid Ends-->
             </div>

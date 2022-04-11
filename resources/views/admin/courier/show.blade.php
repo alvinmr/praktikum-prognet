@@ -26,13 +26,13 @@ Courier Master
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" > 
-                            <tr>
-                                <th>Courier Name</th>
-                                <td>{{$courier->courier}}</td>
-                            </tr>
-                        </table>
-                    </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Courier Name</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" id="courier" name="courier" value="{{ $courier->courier }}" readonly>
+                            </div>
+                        </div>
+                     </div>
                 </div>
             </div>
         </div>

@@ -39,7 +39,7 @@
                                 <tbody>
                                     @foreach ($categories as $category)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $category->category_name }}</td>
                                             <td>
                                                 <a href="{{ url('admin/productcategory/' . $category->id) }}"

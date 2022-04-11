@@ -32,7 +32,7 @@ Product Master
                                 <td>{{$data->product_name}}</td>
                             </tr>
                             <tr>
-                                <th>Category</th>
+                                <th>Description</th>
                                 <td>{{$data->description}}</td>
                             </tr>
                             <tr>
@@ -48,13 +48,85 @@ Product Master
                                 <td>{{$data->weight}}</td>
                             </tr>
                             <tr>
-                                <th>Description</th>
-                                <td>{{$data->description}}</td>
+                                <th>Product Rate</th>
+                                <td>{{$data->product_rate}}</td>
                             </tr>
-                            <tr>
-                                <th>Foto Product</th>
-                                <td> <img width="100"   src="{{ $data->images[0]->image_name }}"/> </td>
-                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row starter-main">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>Data Gambar Product</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" > 
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Gambar</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->images as $product)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td> <img class="img-fluid" width="250" src="{{ $product->image_name }}"/></td>
+                                        <td>
+                                            <a onclick="return confirm('Apakah anda yakin untuk menghapus gambar product?')"
+                                                href="{{ url('admin/product/' . $product->image_name . '/delete') }}"
+                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row starter-main">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5>Data Category Product</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" > 
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->categories as $product)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $product->category_name }}</td>
+                                        <td>
+                                            <a onclick="return confirm('Apakah anda yakin untuk menghapus category product?')"
+                                                href="{{ url('admin/product/' . $product->category_name . '/delete') }}"
+                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

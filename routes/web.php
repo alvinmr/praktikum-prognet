@@ -34,8 +34,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
 
         Route::resource('/productcategory', ProductCategoryController::class);
+        Route::get('/productcategory/{id}/delete',[ProductCategoryController::class,'destroy'])->name('admin.productcategory.destroy');
 
         Route::resource('/courier', CourierController::class);
+        Route::get('/courier/{id}/delete',[CourierController::class,'destroy'])->name('admin.courier.destroy');
 
     });
     // Ini route yang bisa diakses kalo belom login admin, kalo udah login gabisa akses route ini

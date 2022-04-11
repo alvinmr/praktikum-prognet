@@ -37,11 +37,13 @@ class CourierController extends Controller
      */
     public function store(Request $request)
     {
-        $courier = Courier::create([
-            'courier' => $request->name,
+        $validatedData = $request->validate([
+            'courier' => 'required'
         ]);
 
-        return view('admin/courier/create');
+        Courier::create($validatedData);
+
+        return redirect('/admin/courier')->with('success','Data courier berhasil ditambah.');
     }
 
     /**
@@ -77,15 +79,13 @@ class CourierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $courier = Courier::find($id)([
-        //     'courier' => $request->name,
-        // ]);
+        $validatedData = $request->validate([
+            'courier' => 'required',
+        ]);
 
-        $data=Courier::find($id);
-        $data->courier=$request->name;
-        $data->save();
-
-        return
+        Courier::find($id);
+        Courier::where('id',$id)->update($validatedData);
+        return redirect('/admin/courier')->with('success','Data courier berhasil diupdate.');
     }
 
     /**
@@ -96,6 +96,8 @@ class CourierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Courier::where('id',$id)->delete();
+        return redirect('/admin/courier')->with('success','Data courier telah dihapus');
+
     }
 }
