@@ -80,13 +80,35 @@ Product Master
                                 @foreach ($data->images as $product)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td> <img class="img-fluid" width="250" src="{{ $product->image_name }}"/></td>
+                                        <td> <img class="img-fluid" width="150" src="{{ $product->image_name }}"/></td>
                                         <td>
-                                            <a onclick="return confirm('Apakah anda yakin untuk menghapus gambar product?')"
-                                                href="{{ url('admin/product/' . $product->image_name . '/delete') }}"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#imageModal{{ $product->id }}">
+                                            <i class="fa-solid fa fa-image"></i>
+                                            </button>
                                         </td>
                                     </tr>
+                                    {{-- Image modal --}}
+                                    <div class="modal fade" id="imageModal{{ $product->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="imageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="imageModalLabel">Image Product</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <center>
+                                                <div class="modal-body">
+                                                    <img src="{{ $product->image_name }}" class="img-fluid"
+                                                        alt="{{ $product->name }}">
+                                                </div>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -111,19 +133,13 @@ Product Master
                                 <tr>
                                     <th>#</th>
                                     <th>Category</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data->categories as $product)
+                                @foreach ($data->categories as $category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $product->category_name }}</td>
-                                        <td>
-                                            <a onclick="return confirm('Apakah anda yakin untuk menghapus category product?')"
-                                                href="{{ url('admin/product/' . $product->category_name . '/delete') }}"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                        </td>
+                                        <td>{{ $category->category_name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

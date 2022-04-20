@@ -24,6 +24,11 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class, 'product_category_details', 'product_id', 'category_id');
     }
 
+    public function category()
+    {
+        return $this->belongsToMany(ProductCategoryDetail::class);
+    }
+
     public function carts()
     {
         return $this->belongsToMany(Cart::class, 'carts');
@@ -49,6 +54,6 @@ class Product extends Model
         if ($this->images->count() > 0) {
             return $this->images->first()->image_name;
         }
-        return 'https://via.placeholder.com/150';
+        return 'https://via.placeholder.com/250';
     }
 }

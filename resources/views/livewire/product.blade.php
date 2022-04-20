@@ -11,7 +11,7 @@
                                     class="text-blue font-weight-bold">{{ $product->product_name }}</a></h5>
                             <div class="mb-2">
                                 <a href="{{ route('product.show', $product->id) }}" class="d-block text-center"><img
-                                        class="img-fluid" src="{{ $product->images[0]->image_name }}g"
+                                        class="img-fluid" src="{{ $product->image }}"
                                         alt="Image Description"></a>
                             </div>
                             <div class="flex-center-between mb-1">

@@ -11,6 +11,8 @@ use App\Models\ProductCategory;
 use App\Models\ProductCategoryDetail;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductResourceController extends Controller
 {
@@ -46,14 +48,14 @@ class ProductResourceController extends Controller
      */
     public function store(Request $request)
     {
-        // ini nanti bantu tambahin sama tampilin error di bladenya 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'price' => 'required',
-        //     'desc' => 'required',
-        //     'category_id' => 'required',
-        //     'image' => 'required',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'desc' => 'required',
+            'stock' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'category_id' => 'required',
+        ]);
 
         $product = Product::create([
             'product_name' => $request->name,
@@ -73,12 +75,15 @@ class ProductResourceController extends Controller
         }
 
         // Query product images
-        foreach ($request->file('product') as $image_product) {
+        foreach ($request->product as $image_product) {
             ProductImage::create([
                 'product_id' => $product->id,
                 'image_name' => $image_product
             ]);
         }
+
+        return redirect('/admin/product')->with('success','Product has been added.');
+
     }
 
     /**
@@ -101,9 +106,9 @@ class ProductResourceController extends Controller
      */
     public function edit($id)
     {
-        $data = Product::find($id);
+        $product = Product::find($id);
         $categories = ProductCategory::all();
-        return view('admin.product.edit', compact('data', 'categories'));
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -115,7 +120,26 @@ class ProductResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'desc' => 'required',
+            'stock' => 'required|numeric',
+            'weight' => 'required|numeric',
+        ]);
+
+        $products =([
+            'product_name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->desc,
+            'product_rate' => 0,
+            'stock' => $request->stock,
+            'weight' => $request->weight
+        ]);
+        
+        Product::where('id',$id)->update($products);
+
+        return redirect('/admin/product')->with('success','Product has been updated.');
     }
 
     /**
@@ -126,8 +150,14 @@ class ProductResourceController extends Controller
      */
     public function destroy($id)
     {
+        $image = DB::table('product_images')->where('product_id', $id);
+        $image->delete();
+
+        $category = DB::table('product_category_details')->where('product_id', $id);
+        $category->delete();
+        
         Product::where('id',$id)->delete();
-        return redirect('admin/product')->with('success','Data telah dihapus');
+        return redirect('admin/product')->with('success','Product has been deleted');
     }
 
     public function uploadImage(Request $request)
@@ -144,5 +174,46 @@ class ProductResourceController extends Controller
     public function revertImage(Request $request)
     {
         return unlink(public_path($request->getContent()));
+    }
+
+    public function destroyImage($id)
+    {
+        $image = ProductImage::find($id);
+        $image->delete();
+        return redirect()->back()->with('success','Image Product has been deleted');
+    }
+
+    public function destroyCategory(Product $product, Request $request)
+    {
+        // dd($request->all());
+        $product->categories()->detach($request->id);
+        // $category = ProductCategoryDetail::find($id);
+        // $category->delete();
+        return redirect()->back()->with('success','Category Product has been deleted');
+    }
+
+    public function addCategory(Request $request, $id)
+    {
+        foreach ($request->categories as $category) {
+            $product = Product::find($id);
+            ProductCategoryDetail::create([
+                'product_id' => $product->id,
+                'category_id' => $category
+            ]);
+        }
+        return redirect()->back()->with('success','Category Product has been added');
+    }
+
+    public function addImage(Request $request, $id)
+    {
+      // Query product images
+      foreach ($request->product as $image_product) {
+        $product = Product::find($id);
+        ProductImage::create([
+            'product_id' => $product->id,
+            'image_name' => $image_product
+        ]);
+    }
+        return redirect()->back()->with('success','Image Product has been added.');
     }
 }

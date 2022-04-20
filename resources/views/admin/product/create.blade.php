@@ -29,7 +29,13 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Product Name</th>
-                                        <td><input name="name" type="text" class="form-control" /> </td>
+                                        <td><input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"/>
+                                            @error('name')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Product Category</th>
@@ -44,19 +50,43 @@
                                     </tr>
                                     <tr>
                                         <th>Price</span> </th>
-                                        <td> <input name="price" type="text" class="form-control"></td>
+                                        <td> <input name="price" type="text" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
+                                            @error('price')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Stock</span> </th>
-                                        <td> <input name="stock" type="number" class="form-control"></td>
+                                        <td> <input name="stock" type="number" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}">
+                                            @error('stock')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Weight</span> </th>
-                                        <td> <input name="weight" type="number" class="form-control"></td>
+                                        <td> <input name="weight" type="number" class="form-control @error('weight') is-invalid @enderror" value="{{ old('weight') }}">
+                                            @error('weight')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td><input name="desc" type="text" class="form-control" /> </td>
+                                        <td><input name="desc" type="text" class="form-control @error('desc') is-invalid @enderror" value="{{ old('desc') }}"/> 
+                                            @error('desc')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Product Picture</th>

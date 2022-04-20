@@ -32,6 +32,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/product', ProductResourceController::class);
         Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
         Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
+        Route::post('/product/{id}/category/', [ProductResourceController::class, 'addCategory'])->name('product.category.add');
+        Route::post('/product/{id}/image/', [ProductResourceController::class, 'addImage'])->name('product.image.add');
+        Route::get('/product/{id}/deleteImage',[ProductResourceController::class,'destroyImage']);
+        Route::post('/product/{product}/deleteCategory',[ProductResourceController::class,'destroyCategory'])->name('product.delete-category');
+        Route::get('/product/{id}/delete',[ProductResourceController::class,'destroy']);
+
 
         Route::resource('/productcategory', ProductCategoryController::class);
         Route::get('/productcategory/{id}/delete',[ProductCategoryController::class,'destroy'])->name('admin.productcategory.destroy');
