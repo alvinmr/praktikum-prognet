@@ -43,7 +43,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $product->product_name }}</td>
-                                            <td>Rp.{{ $product->price }}</td>
+                                            <td>Rp.{{ number_format($product->price, 2, ',', '.') }}</td>
                                             <td>{{ $product->stock }}</td>
                                             <td>
                                                 <a href="{{ url('admin/product/' . $product->id) }}"

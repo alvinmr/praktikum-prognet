@@ -37,7 +37,7 @@ Product Master
                             </tr>
                             <tr>
                                 <th>Price</th>
-                                <td>Rp.{{$data->price}}</td>
+                                <td>Rp.{{ number_format($data->price, 2, ',', '.') }}</td>
                             </tr>
                             <tr>
                                 <th>Stock</th>

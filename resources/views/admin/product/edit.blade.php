@@ -190,9 +190,9 @@
                                                 <form action="{{ route('admin.product.delete-category', $product->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $category->id}}">
-                                                    <button type="submit"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                    <button onclick="return confirm('Apakah anda yakin untuk menghapus category product?')" type="submit"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                 </form>
-                                                {{-- <a onclick="return confirm('Apakah anda yakin untuk menghapus category product?')"
+                                                {{-- <a 
                                                     href="{{ url('admin/product/' . $category->id . '/deleteCategory') }}"
                                                     class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> --}}
                                             </td>

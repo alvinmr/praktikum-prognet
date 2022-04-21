@@ -54,7 +54,8 @@ class ProductResourceController extends Controller
             'desc' => 'required',
             'stock' => 'required|numeric',
             'weight' => 'required|numeric',
-            'category_id' => 'required',
+            'categories' => 'required',
+            'product' => 'required',
         ]);
 
         $product = Product::create([
