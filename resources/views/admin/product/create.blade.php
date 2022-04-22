@@ -40,12 +40,17 @@
                                     <tr>
                                         <th>Product Category</th>
                                         <td>
-                                            <select name="categories[]" multiple class="form-control" id="category">
+                                            <select name="categories[]" multiple class="form-control @error('categories') is-invalid @enderror" id="category">
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->category_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            @error('categories')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </td>
                                     </tr>
                                     <tr>
@@ -92,8 +97,13 @@
                                         <th>Product Picture</th>
                                         <td>
                                             <div>
-                                                <input type="file" multiple name="product[]" class="form-control"
+                                                <input type="file" multiple name="product[]" class="form-control @error('product') is-invalid @enderror"
                                                     id="product-images" />
+                                                    @error('product')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </td>
                                     </tr>
