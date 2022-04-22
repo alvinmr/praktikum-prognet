@@ -13,9 +13,13 @@ class ProductLivewire extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public $search;
+
+    protected $queryString = ['search'];
+
     public function render()
     {
-        $products = Product::paginate(10);
+        $products = Product::where('product_name', 'like', '%' . $this->search . '%')->paginate(8);
         return view('livewire.product', compact('products'));
     }
 
@@ -34,5 +38,6 @@ class ProductLivewire extends Component
             ]);
         }
         $this->emit('addedToCart');
+        session()->flash('message', 'Product success added to cart');
     }
 }
