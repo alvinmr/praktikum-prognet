@@ -18,6 +18,9 @@ class ProductUserController extends Controller
             '4' => $reviews->where('rate', 4)->count(),
             '5' => $reviews->where('rate', 5)->count(),
         ];
+        if (!auth()->check()) {
+            return view('user.product.show', compact('product', 'reviews', 'reviewCount', 'rate'));
+        }
         $isHasReview = $product->reviews()->where('user_id', auth()->user()->id)->count() > 0;
         return view('user.product.show', compact('product', 'reviews', 'rate', 'reviewCount', 'isHasReview'));
     }
@@ -42,5 +45,11 @@ class ProductUserController extends Controller
     public function buyNow(Product $product)
     {
         return view('user.transaction.buy-now', compact('product'));
+    }
+
+    public function search(Request $request)
+    {
+        $products = Product::where('name', 'LIKE', '%' . $request->name . '%')->get();
+        return view('user.product.search', compact('products'));
     }
 }

@@ -21,25 +21,27 @@
                             </thead>
                             <tbody>
                                 @foreach ($carts as $cart)
-                                <tr class="cart_item">
-                                    <td>{{ $cart->product->product_name }}<strong class="product-quantity">× {{
-                                            $cart->qty }}</strong></td>
-                                    <td>Rp {{ number_format($cart->product->price * $cart->qty, 2, ",",".") }}</td>
-                                </tr>
+                                    <tr class="cart_item">
+                                        <td>{{ $cart->product->product_name }}<strong class="product-quantity">×
+                                                {{ $cart->qty }}</strong>
+                                        </td>
+                                        <td>Rp {{ number_format($cart->product->price * $cart->qty, 2, ',', '.') }}
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Subtotal</th>
-                                    <td>Rp {{ number_format($subtotal, 2, ",", ".") }}</td>
+                                    <td>Rp {{ number_format($subtotal, 2, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <th>Shipping</th>
-                                    <td>Rp {{ number_format($cost, 2, ",", ".") }}</td>
+                                    <td>Rp {{ number_format($cost, 2, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <td><strong>Rp {{ number_format($subtotal + $cost, 2, ",", ".") }}</strong></td>
+                                    <td><strong>Rp {{ number_format($subtotal + $cost, 2, ',', '.') }}</strong></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -75,9 +77,20 @@
                             <!-- End Basics Accordion -->
                         </div>
                         @if ($cost != null)
-                        <button wire:click='checkout' type="button"
-                            class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">Place
-                            order</button>
+                            <button wire:click='checkout' type="button"
+                                class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">Place
+                                order</button>
+                        @endif
+                        @if ($id_courier != null && $id_city != null && $id_province != null)
+                            <button type="button" wire:click='checkCost' wire:target="checkCost"
+                                wire:loading.attr="disabled"
+                                class="btn btn-secondary btn-block btn-pill font-size-20 mb-3 py-3">
+                                Check Shipping Cost
+                                <div class="spinner-border d-none" wire:target="checkCost"
+                                    wire:loading.class.remove="d-none" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
                         @endif
                     </div>
                     <!-- End Order Summary -->
@@ -136,8 +149,8 @@
                                 wire:model='id_province'>
                                 <option value="" selected disabled>Select a Province</option>
                                 @foreach ($provinces as $province)
-                                <option value="{{ $province->id }}">{{ $province->title
-                                    }}</option>
+                                    <option value="{{ $province->id }}">
+                                        {{ $province->title }}</option>
                                 @endforeach
                             </select>
 
@@ -146,25 +159,25 @@
                     </div>
 
                     @if ($id_province)
-                    <div class="col-md-12">
-                        <!-- Input -->
-                        <div class="js-form-message mb-6">
-                            <label class="form-label">
-                                City
-                                <span class="text-danger">*</span>
-                            </label>
-                            <select class="form-control right-dropdown-0-all w-100"
-                                data-style="bg-white font-weight-normal border border-color-1 text-gray-20"
-                                wire:model='id_city'>
-                                <option value="" selected disabled>Select a City</option>
-                                @foreach ($cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->title
-                                    }}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-md-12">
+                            <!-- Input -->
+                            <div class="js-form-message mb-6">
+                                <label class="form-label">
+                                    City
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control right-dropdown-0-all w-100"
+                                    data-style="bg-white font-weight-normal border border-color-1 text-gray-20"
+                                    wire:model='id_city'>
+                                    <option value="" selected disabled>Select a City</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}">
+                                            {{ $city->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- End Input -->
                         </div>
-                        <!-- End Input -->
-                    </div>
                     @endif
 
                     <div class="col-md-12">
@@ -179,7 +192,8 @@
                                 wire:model='id_courier'>
                                 <option value="" selected disabled>Select a Courier</option>
                                 @foreach ($couriers as $courier)
-                                <option value="{{ $courier->id }}">{{ strtoupper($courier->courier)}}</option>
+                                    <option value="{{ $courier->id }}">{{ strtoupper($courier->courier) }}
+                                    </option>
                                 @endforeach
                             </select>
 
@@ -195,21 +209,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                wire:model='address' placeholder="470 Lucy Forks">
+                                wire:model.lazy='address' placeholder="470 Lucy Forks">
                             @error('address')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                         <!-- End Input -->
                     </div>
-
                     <div class="w-100"></div>
-                    @if ($id_courier != null && $id_city != null && $id_province != null)
-                    <button type="button" wire:click='checkCost' class="btn btn-secondary">Check Shipping
-                        Cost</button>
-                    @endif
                 </div>
                 <!-- End Billing Form -->
             </div>

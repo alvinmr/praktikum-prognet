@@ -196,84 +196,88 @@
                             </ul>
                             <!-- End Ratings -->
                         </div>
-                        @if (!$isHasReview)
-                            <div class="col-md-6">
-                                <h3 class="font-size-18 mb-5">Add a review</h3>
-                                <!-- Form -->
-                                <form class="js-validate" method="POST"
-                                    action="{{ route('review.store', $product) }}">
-                                    @csrf
-                                    <div class="row align-items-center mb-4">
-                                        <div class="col-md-4 col-lg-3">
-                                            <label for="rating" class="form-label mb-0">Your Rating</label>
-                                        </div>
-                                        <div class="col-md-8 col-lg-9">
-                                            <div class="form-group">
-                                                <div id="full-stars-example-two">
-                                                    <div class="rating-group">
-                                                        <input disabled checked class="rating__input rating__input--none"
-                                                            name="rating" id="rating3-none" value="0" type="radio">
-                                                        <label aria-label="1 star" class="rating__label"
-                                                            for="rating3-1"><i
-                                                                class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating" id="rating3-1"
-                                                            value="1" type="radio">
-                                                        <label aria-label="2 stars" class="rating__label"
-                                                            for="rating3-2"><i
-                                                                class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating" id="rating3-2"
-                                                            value="2" type="radio">
-                                                        <label aria-label="3 stars" class="rating__label"
-                                                            for="rating3-3"><i
-                                                                class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating" id="rating3-3"
-                                                            value="3" type="radio">
-                                                        <label aria-label="4 stars" class="rating__label"
-                                                            for="rating3-4"><i
-                                                                class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating" id="rating3-4"
-                                                            value="4" type="radio">
-                                                        <label aria-label="5 stars" class="rating__label"
-                                                            for="rating3-5"><i
-                                                                class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating" id="rating3-5"
-                                                            value="5" type="radio">
+                        @auth
+                            @if (!isset($isHasReview))
+                                <div class="col-md-6">
+                                    <h3 class="font-size-18 mb-5">Add a review</h3>
+                                    <!-- Form -->
+                                    <form class="js-validate" method="POST"
+                                        action="{{ route('review.store', $product) }}">
+                                        @csrf
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-md-4 col-lg-3">
+                                                <label for="rating" class="form-label mb-0">Your Rating</label>
+                                            </div>
+                                            <div class="col-md-8 col-lg-9">
+                                                <div class="form-group">
+                                                    <div id="full-stars-example-two">
+                                                        <div class="rating-group">
+                                                            <input disabled checked class="rating__input rating__input--none"
+                                                                name="rating" id="rating3-none" value="0" type="radio">
+                                                            <label aria-label="1 star" class="rating__label"
+                                                                for="rating3-1"><i
+                                                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-1"
+                                                                value="1" type="radio">
+                                                            <label aria-label="2 stars" class="rating__label"
+                                                                for="rating3-2"><i
+                                                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-2"
+                                                                value="2" type="radio">
+                                                            <label aria-label="3 stars" class="rating__label"
+                                                                for="rating3-3"><i
+                                                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-3"
+                                                                value="3" type="radio">
+                                                            <label aria-label="4 stars" class="rating__label"
+                                                                for="rating3-4"><i
+                                                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-4"
+                                                                value="4" type="radio">
+                                                            <label aria-label="5 stars" class="rating__label"
+                                                                for="rating3-5"><i
+                                                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-5"
+                                                                value="5" type="radio">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                @error('rate')
+                                                    <span>{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('rate')
-                                                <span>{{ $message }}</span>
-                                            @enderror
                                         </div>
-                                    </div>
-                                    <div class="js-form-message form-group mb-3 row">
-                                        <div class="col-md-4 col-lg-3">
-                                            <label for="descriptionTextarea" class="form-label">Your Review</label>
+                                        <div class="js-form-message form-group mb-3 row">
+                                            <div class="col-md-4 col-lg-3">
+                                                <label for="descriptionTextarea" class="form-label">Your Review</label>
+                                            </div>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea class="form-control @error('content') is-invalid @enderror" rows="3" id="descriptionTextarea"
+                                                    data-msg="Please enter your message."
+                                                    data-error-class="u-has-error"
+                                                    data-success-class="u-has-success" name="content"></textarea>
+                                                @error('content')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                        <div class="col-md-8 col-lg-9">
-                                            <textarea class="form-control @error('content') is-invalid @enderror" rows="3" id="descriptionTextarea"
-                                                data-msg="Please enter your message." data-error-class="u-has-error"
-                                                data-success-class="u-has-success" name="content"></textarea>
-                                            @error('content')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="row">
+                                            <div class="offset-md-4 offset-lg-3 col-auto">
+                                                <button type="submit"
+                                                    class="btn btn-primary-dark btn-wide transition-3d-hover">Add
+                                                    Review</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="offset-md-4 offset-lg-3 col-auto">
-                                            <button type="submit"
-                                                class="btn btn-primary-dark btn-wide transition-3d-hover">Add
-                                                Review</button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- End Form -->
-                            </div>
-                        @endif
+                                    </form>
+                                    <!-- End Form -->
+                                </div>
+                            @endif
+                        @endauth
                     </div>
                     <!-- Review -->
+                    {{-- @auth --}}
                     @foreach ($reviews as $review)
                         <div class="border-bottom border-color-1 pb-4 mb-4">
                             <!-- Review Rating -->
@@ -294,7 +298,7 @@
                             <!-- Reviewer -->
                             <div class="mb-2">
                                 <strong>{{ $review->user->name }}
-                                    {{ $review->user->id == auth()->user()->id ? '(You)' : '' }}</strong>
+                                    {{ $review->user->id == (auth()->user()->id ?? '') ? '(You)' : '' }}</strong>
                                 <span class="font-size-13 text-gray-23">
                                     - {{ $review->created_at->diffForHumans() }}
                                 </span>
@@ -302,6 +306,7 @@
                             <!-- End Reviewer -->
                         </div>
                     @endforeach
+                    {{-- @endauth --}}
                     <!-- End Review -->
                 </div>
             </div>

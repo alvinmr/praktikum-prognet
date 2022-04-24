@@ -122,11 +122,15 @@
                                                 <label class="custom-file-label" for="proof_payment">Choose file</label>
                                             </div>
                                         </div>
-                                        <div>
-                                            <button class="btn btn-primary btn-block" type="submit">Submit</button>
-                                            <a href="#" class="btn btn-soft-danger btn-block">Cancel Order</a>
-                                        </div>
+                                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
                                     </form>
+                                    <div class="mt-3">
+                                        <form action="{{ route('delete-transaction', $transaction->id) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-soft-danger btn-block">Cancel
+                                                Order</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <script>
                                     document.querySelector('.custom-file-input').addEventListener('change', function(e) {

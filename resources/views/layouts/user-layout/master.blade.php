@@ -3,7 +3,7 @@
 
 <head>
     <!-- Title -->
-    <title>Shop Fullwidth | Electro - Responsive Website Template</title>
+    <title>Shop | Electro</title>
 
     <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
@@ -53,8 +53,6 @@
 
     <!-- ========== FOOTER ========== -->
     <footer>
-
-
         <!-- Footer-bottom-widgets -->
         <div class="  pt-8 pb-4 bg-gray-13">
             <div class="container mt-1">

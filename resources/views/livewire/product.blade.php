@@ -13,7 +13,7 @@
 
 
     <ul class="row list-unstyled products-group no-gutters">
-        @foreach ($products as $product)
+        @forelse ($products as $product)
             <li class="col-6 col-md-3 col-xl-3 product-item">
                 <div class="product-item__outer h-100">
                     <div class="product-item__inner px-xl-4 p-3">
@@ -49,7 +49,16 @@
                     </div>
                 </div>
             </li>
-        @endforeach
+        @empty
+            <div class="col-12 mt-10">
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Product Not Found</h4>
+                    <p>
+                        <a href="{{ route('home') }}" class="alert-link">Back to Home</a>
+                    </p>
+                </div>
+            </div>
+        @endforelse
     </ul>
 
     <!-- Shop Pagination -->

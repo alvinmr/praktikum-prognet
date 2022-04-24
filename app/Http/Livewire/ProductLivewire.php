@@ -15,8 +15,6 @@ class ProductLivewire extends Component
 
     public $search;
 
-    protected $queryString = ['search'];
-
     public function render()
     {
         $products = Product::where('product_name', 'like', '%' . $this->search . '%')->paginate(8);

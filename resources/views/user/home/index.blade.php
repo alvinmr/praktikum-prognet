@@ -19,7 +19,7 @@
         <!-- Tab Content -->
 
 
-        @livewire('product-livewire')
+        @livewire('product-livewire', ['search' => request()->input('search')])
         <!-- End Shop Body -->
 
     </div>

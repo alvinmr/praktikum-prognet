@@ -39,6 +39,12 @@ class ProductBuyNowLivewire extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
+        if ($this->qty <= 0) {
+            $this->qty = 1;
+        }
+        if ($this->qty > $this->product->stock) {
+            $this->qty = $this->product->stock;
+        }
         $this->sumSubtotal();
         $this->sumWeight();
         $this->provinces = Province::all();

@@ -1,6 +1,21 @@
 <!-- ========== HEADER ========== -->
 <header id="header" class="u-header u-header-left-aligned-nav">
     <div class="u-header__section">
+        <div>
+            {{-- information when user has not verify --}}
+            @auth
+                @if (!Auth::user()->hasVerifiedEmail())
+                    <div class="alert alert-danger fade show" role="alert">
+                        <div class="alert-text">
+                            <strong>Warning!</strong> Please verify your email address.
+                            <a class="alert-link" href="{{ route('verification.notice') }}">
+                                Click here to resend verification email.
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+        </div>
         <!-- Topbar -->
         <div class="u-header-topbar py-2 d-none d-xl-block">
             <div class="container">
@@ -11,7 +26,8 @@
                     </div>
                     <div class="topbar-right ml-auto">
                         <ul class="list-inline mb-0">
-                            <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                            <li
+                                class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                 <!-- Account Sidebar Toggle Button -->
                                 @guest
                                     <a id="sidebarNavToggler" href="{{ route('login') }}"
@@ -113,22 +129,10 @@
                                 <ul class="navbar-nav u-header__navbar-nav">
                                     <!-- Home -->
                                     <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/about.html">Home</a>
+                                        <a class="nav-link u-header__nav-link" href="{{ route('my-transaction') }}">My
+                                            Transaction</a>
                                     </li>
                                     <!-- End Home -->
-
-                                    <!-- FAQs -->
-                                    <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/faq.html">FAQs</a>
-                                    </li>
-                                    <!-- End FAQs -->
-
-                                    <!-- Contact Us -->
-                                    <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/contact-v1.html">Contact
-                                            Us</a>
-                                    </li>
-                                    <!-- End Contact Us -->
                                 </ul>
                             </div>
                             <!-- End Navigation -->
