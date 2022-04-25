@@ -101,7 +101,7 @@
                                     <p>
                                         <strong>Payment Proof</strong> : <br>
                                         <img src="{{ asset('images/proof_payment/' . $transaction->proof_of_payment) }}"
-                                            alt="Payment Proof">
+                                            alt="Payment Proof" class="img-fluid">
                                     </p>
                                 </div>
                             @elseif($transaction->status == 'Belum Terbayar')
