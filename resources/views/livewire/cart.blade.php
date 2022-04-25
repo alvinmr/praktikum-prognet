@@ -5,7 +5,7 @@
                 <!-- Search bar -->
                 <div class="col align-self-center">
                     <!-- Search-Form -->
-                    <form class="js-focus-state" method="GET" action="">
+                    <form class="js-focus-state" method="GET" action="{{ route('home') }}">
                         <label class="sr-only" for="searchProduct">Search</label>
                         <div class="input-group">
                             <input type="search"
