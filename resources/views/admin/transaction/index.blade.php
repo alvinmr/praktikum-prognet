@@ -50,12 +50,21 @@
                                             <td class="text-uppercase">{{ $transaction->courier->courier }}</td>
                                             <td>{{ $transaction->status }}</td>
                                             <td>{{ number_format($transaction->total, 2, ',', '.') }}</td>
-                                            <td class="d-flex justify-content-center">
-                                                <a data-bs-toggle="modal"
-                                                    data-bs-target="#product--{{ $transaction->id }}"
-                                                    class="btn btn-info btn-xs">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                            <td class="justify-content-center">
+                                                <div class="mb-2">
+                                                    <a data-bs-toggle="modal"
+                                                        data-bs-target="#product--{{ $transaction->id }}"
+                                                        class="btn btn-info btn-xs">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <a data-bs-toggle="modal"
+                                                        data-bs-target="#proof--{{ $transaction->id }}"
+                                                        class="btn btn-primary btn-xs">
+                                                        <i class="fa fa-file-photo-o"></i>
+                                                    </a>
+                                                </div>
                                                 @if ($transaction->status == 'Pending')
                                                     <form
                                                         action="{{ route('admin.transaction.accept', $transaction->id) }}"
@@ -130,6 +139,27 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- modal proof payment --}}
+        <div class="modal fade" id="proof--{{ $transaction->id }}" tabindex="-1" aria-labelledby="proofLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="proofLabel">Proof Of Payment Transaction ID :
+                            #{{ $transaction->id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ asset('images/proof_payment/' . $transaction->proof_of_payment) }}"
+                            class="img-fluid">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

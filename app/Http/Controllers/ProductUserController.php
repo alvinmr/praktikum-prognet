@@ -21,7 +21,7 @@ class ProductUserController extends Controller
         if (!auth()->check()) {
             return view('user.product.show', compact('product', 'reviews', 'reviewCount', 'rate'));
         }
-        $isHasReview = $product->reviews()->where('user_id', auth()->user()->id)->count() > 0;
+        $isHasReview = $product->reviews()->where('user_id', auth()->user()->id)->where('product_id', $product->id)->count() > 0;
         return view('user.product.show', compact('product', 'reviews', 'rate', 'reviewCount', 'isHasReview'));
     }
 

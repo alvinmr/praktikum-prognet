@@ -197,7 +197,7 @@
                             <!-- End Ratings -->
                         </div>
                         @auth
-                            @if (!isset($isHasReview))
+                            @if (!isset($isHasReview) || $isHasReview == false)
                                 <div class="col-md-6">
                                     <h3 class="font-size-18 mb-5">Add a review</h3>
                                     <!-- Form -->
