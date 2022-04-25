@@ -23,7 +23,11 @@
                         <a class="nav-link menu-title" href="{{ route('admin.productcategory.index') }}"><i
                                 data-feather="package"></i><span>Product Categories CRUD</span></a>
                     </li>
-                    <li class="dropdown">
+                    <li class="">
+                        <a class="nav-link menu-title" href="{{ route('admin.transaction.index') }}"><i
+                                data-feather="package"></i><span>Transaction</span></a>
+                    </li>
+                    {{-- <li class="dropdown">
                         <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
                                 data-feather="anchor"></i><span>Starter kit</span></a>
                         <ul class="nav-submenu menu-content" style="display: {{ prefixBlock('/starter-kit') }};">
@@ -33,7 +37,8 @@
                                 </a>
                                 <ul class="nav-sub-childmenu submenu-content"
                                     style="display: {{ in_array(Route::currentRouteName(), ['index', 'layout-dark']) ? 'block' : 'none' }};">
-                                    <li><a href="{{ route('admin.index') }}" class="{{ routeActive('index') }}">Layout
+                                    <li><a href="{{ route('admin.index') }}"
+                                            class="{{ routeActive('index') }}">Layout
                                             Light</a></li>
                                     <li><a href="#" class="{{ routeActive('layout-dark') }}">Layout Dark</a></li>
                                 </ul>
@@ -52,7 +57,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
