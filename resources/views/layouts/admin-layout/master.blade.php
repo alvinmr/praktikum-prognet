@@ -20,7 +20,7 @@
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
         rel="stylesheet">
     <!-- Font Awesome-->
-    @includeIf('layouts.admin-layout.partials.css')
+    @include('layouts.admin-layout.partials.css')
     @livewireStyles
 </head>
 
@@ -33,19 +33,19 @@
     <!-- page-wrapper Start-->
     <div class="page-wrapper compact-wrapper compact-sidebar" id="pageWrapper">
         <!-- Page Header Start-->
-        @includeIf('layouts.admin-layout.partials.header')
+        @include('layouts.admin-layout.partials.header')
         <!-- Page Header Ends -->
         <!-- Page Body Start-->
         <div class="page-body-wrapper sidebar-icon">
             <!-- Page Sidebar Start-->
-            @includeIf('layouts.admin-layout.partials.sidebar')
+            @include('layouts.admin-layout.partials.sidebar')
             <!-- Page Sidebar Ends-->
             <div class="page-body">
                 <!-- Container-fluid starts-->
                 @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
+                    <div class="alert alert-success alert-block">
                         <strong>{{ $message }}</strong>
-                </div>
+                    </div>
                 @endif
 
                 @if ($message = Session::get('danger'))
@@ -93,7 +93,7 @@
         body.classList.add("dark-only");
     </script>
 
-    @includeIf('layouts.admin-layout.partials.js')
+    @include('layouts.admin-layout.partials.js')
     @livewireScripts
 
 </body>

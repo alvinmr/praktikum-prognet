@@ -37,7 +37,8 @@
                                 </a>
                                 <ul class="nav-sub-childmenu submenu-content"
                                     style="display: {{ in_array(Route::currentRouteName(), ['index', 'layout-dark']) ? 'block' : 'none' }};">
-                                    <li><a href="{{ route('admin.index') }}" class="{{ routeActive('index') }}">Layout
+                                    <li><a href="{{ route('admin.index') }}"
+                                            class="{{ routeActive('index') }}">Layout
                                             Light</a></li>
                                     <li><a href="#" class="{{ routeActive('layout-dark') }}">Layout Dark</a></li>
                                 </ul>
@@ -56,7 +57,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

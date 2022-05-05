@@ -18,23 +18,25 @@
                                 class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0">
                                 <small class="fas fa-minus btn-icon__inner"></small>
                             </button>
+                        </div>
+                        <div class="col">
+                            <input wire:model='qty'
+                                class="js-result form-control h-auto border-0 rounded p-0 shadow-none text-center"
+                                type="text" value="1">
+                        </div>
+                        <div class="col-auto pr-1">
                             <button wire:click='incrementQty'
                                 class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0">
                                 <small class="fas fa-plus btn-icon__inner"></small>
                             </button>
                         </div>
-                        <div class="col">
-                            <input wire:model='qty'
-                                class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text"
-                                value="1">
-                        </div>
                     </div>
                 </div>
                 <!-- End Quantity -->
             </div>
-            <div class="mb-2 pb-0dot5">
-                <button wire:click='addToCart' class="btn btn-block btn-primary-dark"><i
-                        class="ec ec-add-to-cart mr-2 font-size-20"></i>
+            <div class="mb-2 pb-0" role="button">
+                <button wire:click='addToCart' class="btn btn-block btn-primary-dark" type="button">
+                    <i class="ec ec-add-to-cart mr-2 font-size-20"></i>
                     Add to Cart</button>
             </div>
             <div class="mb-3">

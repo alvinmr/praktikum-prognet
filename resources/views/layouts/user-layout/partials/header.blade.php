@@ -1,6 +1,21 @@
 <!-- ========== HEADER ========== -->
 <header id="header" class="u-header u-header-left-aligned-nav">
     <div class="u-header__section">
+        <div>
+            {{-- information when user has not verify --}}
+            @auth
+                @if (!Auth::user()->hasVerifiedEmail())
+                    <div class="alert alert-danger fade show" role="alert">
+                        <div class="alert-text">
+                            <strong>Warning!</strong> Please verify your email address.
+                            <a class="alert-link" href="{{ route('verification.notice') }}">
+                                Click here to resend verification email.
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+        </div>
         <!-- Topbar -->
         <div class="u-header-topbar py-2 d-none d-xl-block">
             <div class="container">
@@ -15,23 +30,24 @@
                                 class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                 <!-- Account Sidebar Toggle Button -->
                                 @guest
-                                <a id="sidebarNavToggler" href="{{ route('login') }}" class="u-header-topbar__nav-link">
-                                    <i class="ec ec-user mr-1">
-                                    </i> Register <span class="text-gray-50">or</span> Sign in
-                                </a>
+                                    <a id="sidebarNavToggler" href="{{ route('login') }}"
+                                        class="u-header-topbar__nav-link">
+                                        <i class="ec ec-user mr-1">
+                                        </i> Register <span class="text-gray-50">or</span> Sign in
+                                    </a>
                                 @endguest
                                 @auth
-                                <a id="sidebarNavToggler" href="javascript:;" class="u-header-topbar__nav-link">
-                                    <i class="ec ec-user mr-1">
-                                    </i> {{ auth()->user()->name }}
-                                </a>
-                                <form action="{{ route('logout') }}" method="POST" id="form-logout">
-                                    @csrf
-                                </form>
-                            <li class="list-inline-item  u-header-topbar__nav-item-border">
-                                <a href="#" class=""
-                                    onclick="document.getElementById('form-logout').submit()">Logout</a>
-                            </li>
+                                    <a id="sidebarNavToggler" href="javascript:;" class="u-header-topbar__nav-link">
+                                        <i class="ec ec-user mr-1">
+                                        </i> {{ auth()->user()->name }}
+                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST" id="form-logout">
+                                        @csrf
+                                    </form>
+                                <li class="list-inline-item  u-header-topbar__nav-item-border">
+                                    <a href="#" class=""
+                                        onclick="document.getElementById('form-logout').submit()">Logout</a>
+                                </li>
                             @endauth
                             <!-- End Account Sidebar Toggle Button -->
                             </li>
@@ -57,8 +73,8 @@
                                 <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px"
                                     viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52"
                                     style="margin-bottom: 0;">
-                                    <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700"
-                                        cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
+                                    <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd"
+                                        fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                     <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48"
                                         d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
                                             C30.263,0.995,29.876,1.181,29.79,1.5c-0.148,0.548,0,1.568,0,2.427v36.459c0.265,0.221,0.506,0.465,0.725,0.734h6.187
@@ -113,22 +129,10 @@
                                 <ul class="navbar-nav u-header__navbar-nav">
                                     <!-- Home -->
                                     <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/about.html">Home</a>
+                                        <a class="nav-link u-header__nav-link" href="{{ route('my-transaction') }}">My
+                                            Transaction</a>
                                     </li>
                                     <!-- End Home -->
-
-                                    <!-- FAQs -->
-                                    <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/faq.html">FAQs</a>
-                                    </li>
-                                    <!-- End FAQs -->
-
-                                    <!-- Contact Us -->
-                                    <li class="nav-item u-header__nav-item">
-                                        <a class="nav-link u-header__nav-link" href="../home/contact-v1.html">Contact
-                                            Us</a>
-                                    </li>
-                                    <!-- End Contact Us -->
                                 </ul>
                             </div>
                             <!-- End Navigation -->
@@ -159,23 +163,11 @@
                             <ul class="d-flex list-unstyled mb-0 align-items-center">
                                 <!-- Search -->
                                 <li class="col d-xl-none px-2 px-sm-3 position-static">
-                                    <a id="searchClassicInvoker"
-                                        class="font-size-22 text-gray-90 text-lh-1 btn-text-secondary"
-                                        href="javascript:;" role="button" data-toggle="tooltip" data-placement="top"
-                                        title="Search" aria-controls="searchClassic" aria-haspopup="true"
-                                        aria-expanded="false" data-unfold-target="#searchClassic"
-                                        data-unfold-type="css-animation" data-unfold-duration="300"
-                                        data-unfold-delay="300" data-unfold-hide-on-scroll="true"
-                                        data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
-                                        <span class="ec ec-search"></span>
-                                    </a>
 
                                     <!-- Input -->
-                                    <div id="searchClassic"
-                                        class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2"
-                                        aria-labelledby="searchClassicInvoker">
-                                        <form class="js-focus-state input-group px-3">
-                                            <input class="form-control" type="search" placeholder="Search Product">
+                                    <div class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2">
+                                        <form class="input-group px-3">
+                                            <input class="form-control" type="text" placeholder="Search Product">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary px-3" type="button"><i
                                                         class="font-size-18 ec ec-search"></i></button>

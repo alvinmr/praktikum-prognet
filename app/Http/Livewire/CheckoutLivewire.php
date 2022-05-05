@@ -25,6 +25,7 @@ class CheckoutLivewire extends Component
     public $id_province = '';
     public $id_city = '';
     public $id_courier = '';
+    public $list_courier = [];
 
     protected $rules = [
         'address' => 'required|min:6',

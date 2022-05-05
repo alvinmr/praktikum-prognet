@@ -39,4 +39,13 @@ class TransactionController extends Controller
 
         return redirect()->route('payment', $transaction);
     }
+
+    public function deleteTransaction(Transaction $transaction)
+    {
+        if (auth()->user()->id !== $transaction->user_id) {
+            return abort(404);
+        }
+        $transaction->delete();
+        return redirect()->route('home');
+    }
 }

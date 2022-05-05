@@ -1,5 +1,5 @@
 <div>
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
             <div class="pl-lg-3 ">
                 <div class="bg-gray-1 rounded-lg">
@@ -78,6 +78,17 @@
                             <button wire:click='checkout' type="button"
                                 class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">Place
                                 order</button>
+                        @endif
+                        @if ($id_courier != null && $id_city != null && $id_province != null)
+                            <button type="button" wire:click='checkCost' wire:target="checkCost"
+                                wire:loading.attr="disabled"
+                                class="btn btn-secondary btn-block btn-pill font-size-20 mb-3 py-3">
+                                Check Shipping Cost
+                                <div class="spinner-border d-none" wire:target="checkCost"
+                                    wire:loading.class.remove="d-none" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
                         @endif
                     </div>
                     <!-- End Order Summary -->
@@ -196,7 +207,7 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                wire:model='address' placeholder="470 Lucy Forks">
+                                wire:model.lazy='address' placeholder="470 Lucy Forks">
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -205,12 +216,7 @@
                         </div>
                         <!-- End Input -->
                     </div>
-
                     <div class="w-100"></div>
-                    @if ($id_courier != null && $id_city != null && $id_province != null)
-                        <button type="button" wire:click='checkCost' class="btn btn-secondary">Check Shipping
-                            Cost</button>
-                    @endif
                 </div>
                 <!-- End Billing Form -->
             </div>
