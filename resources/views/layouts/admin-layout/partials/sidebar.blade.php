@@ -24,6 +24,10 @@
                                 data-feather="package"></i><span>Product Categories CRUD</span></a>
                     </li>
                     <li class="dropdown">
+                        <a class="nav-link menu-title" href="{{ route('admin.discount.index') }}"><i
+                                data-feather="dollar-sign"></i><span>Discount CRUD</span></a>
+                    </li>
+                    <li class="dropdown">
                         <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
                                 data-feather="anchor"></i><span>Starter kit</span></a>
                         <ul class="nav-submenu menu-content" style="display: {{ prefixBlock('/starter-kit') }};">

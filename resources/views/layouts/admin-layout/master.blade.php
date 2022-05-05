@@ -47,6 +47,12 @@
                         <strong>{{ $message }}</strong>
                 </div>
                 @endif
+
+                @if ($message = Session::get('danger'))
+                <div class="alert alert-danger alert-block">
+                        <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 @yield('content')
                 <!-- Container-fluid Ends-->
             </div>

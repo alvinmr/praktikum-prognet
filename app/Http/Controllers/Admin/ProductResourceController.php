@@ -51,7 +51,7 @@ class ProductResourceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'desc' => 'required',
+            'desc' => 'required|max:255',
             'stock' => 'required|numeric',
             'weight' => 'required|numeric',
             'categories' => 'required',
@@ -124,7 +124,7 @@ class ProductResourceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'desc' => 'required',
+            'desc' => 'required|max:255',
             'stock' => 'required|numeric',
             'weight' => 'required|numeric',
         ]);
@@ -151,14 +151,29 @@ class ProductResourceController extends Controller
      */
     public function destroy($id)
     {
+
+    $cart = DB::table('carts')->whereNull('product_id', $id);
+    $cart1 = DB::table('carts')->where('product_id', $id);
+
+    if($cart1){
+        return redirect('admin/product')->with('danger','The product is still in the customers cart');
+      }
+
+    if ($cart){
         $image = DB::table('product_images')->where('product_id', $id);
         $image->delete();
-
+  
         $category = DB::table('product_category_details')->where('product_id', $id);
         $category->delete();
+
+        $discount = DB::table('discounts')->where('product_id', $id);
+        $discount->delete();
         
         Product::where('id',$id)->delete();
         return redirect('admin/product')->with('success','Product has been deleted');
+      }
+
+     
     }
 
     public function uploadImage(Request $request)
@@ -186,7 +201,6 @@ class ProductResourceController extends Controller
 
     public function destroyCategory(Product $product, Request $request)
     {
-        // dd($request->all());
         $product->categories()->detach($request->id);
         // $category = ProductCategoryDetail::find($id);
         // $category->delete();
