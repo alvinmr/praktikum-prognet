@@ -23,6 +23,9 @@ class ProductLivewire extends Component
 
     public function addToCart($id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         $cart = Cart::whereUserId(auth()->user()->id)->whereProductId($id)->first();
         if ($cart) {
             $cart->qty++;

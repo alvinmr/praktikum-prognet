@@ -67,7 +67,7 @@ class CheckoutLivewire extends Component
         $cart = Cart::with('product')->whereUserId(auth()->user()->id)->whereStatus('Dalam Keranjang')->get();
         $this->subtotal = 0;
         foreach ($cart as $item) {
-            $this->subtotal += $item->product->price * $item->qty;
+            $this->subtotal += $item->product->discount ? $item->product->price_discount() * $item->qty : $item->product->price * $item->qty;
         }
     }
 
@@ -102,8 +102,8 @@ class CheckoutLivewire extends Component
                 'transaction_id' => $trx->id,
                 'product_id' => $item->product->id,
                 'qty' => $item->qty,
-                'discount' => 0,
-                'selling_price' => $item->product->price * (1 - 0 / 100)
+                'discount' => $item->product->discount->percentage ?? 0,
+                'selling_price' => $item->product->discount ? $item->product->price_discount() : $item->product->price
             ]);
             $item->product->stock -= $item->qty;
             $item->product->save();

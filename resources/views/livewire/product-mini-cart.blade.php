@@ -5,8 +5,17 @@
                 <span class="text-green font-weight-bold">{{ $product->stock }} in stock</span>
             </div>
             <div class="mb-3">
-                <div class="font-size-36">Rp {{ number_format($product->price, 2, ',', '.') }}
-                </div>
+                @if ($product->discount)
+                    <div class="d-flex align-items-baseline flex-column">
+                        <ins class="font-size-36 text-decoration-none">Rp.
+                            {{ number_format($product->price_discount(), 2, ',', '.') }}</ins>
+                        <del class="font-size-20 text-gray-6">Rp.
+                            {{ number_format($product->price, 2, ',', '.') }}</del>
+                    </div>
+                @else
+                    <div class="font-size-36">Rp {{ number_format($product->price, 2, ',', '.') }}
+                    </div>
+                @endif
             </div>
             <div class="mb-3">
                 <h6 class="font-size-14">Quantity</h6>

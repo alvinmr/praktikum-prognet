@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CourierController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderUserController;
 use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/courier/{id}/delete', [CourierController::class, 'destroy'])->name('admin.courier.destroy');
 
         Route::resource('/discount', DiscountController::class);
-        Route::get('/discount/{id}/delete',[DiscountController::class,'destroy'])->name('admin.discount.destroy');
+        Route::get('/discount/{id}/delete', [DiscountController::class, 'destroy'])->name('admin.discount.destroy');
     });
     // Ini route yang bisa diakses kalo belom login admin, kalo udah login gabisa akses route ini
     Route::middleware('guest:admin')->group(function () {

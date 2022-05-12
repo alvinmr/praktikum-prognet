@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,7 +47,17 @@ class Product extends Model
 
     public function discount()
     {
-        return $this->hasOne(Product::class);
+        return $this->hasOne(Discount::class);
+    }
+
+    public function isHasDicount()
+    {
+        return $this->discount ? true : false;
+    }
+
+    public function price_discount()
+    {
+        return (1 - $this->discount->percentage / 100) * $this->price;
     }
 
     public function getImageAttribute()

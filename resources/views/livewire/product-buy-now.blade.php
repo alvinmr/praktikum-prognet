@@ -24,8 +24,18 @@
                                     <td>{{ $product->product_name }}<strong class="product-quantity">×
                                             {{ $qty }}</strong>
                                     </td>
-                                    <td>Rp {{ number_format($product->price * $qty, 2, ',', '.') }}
+                                    <td>
+                                        @if ($product->discount)
+                                            <ins class="text-decoration-none">Rp.
+                                                {{ number_format($product->price_discount() * $qty, 2, ',', '.') }}</ins>
+                                            <del class="tex-gray-6 " style="bottom: 75%">Rp.
+                                                {{ number_format($product->price * $qty, 2, ',', '.') }}</del>
+                                        @else
+                                            Rp {{ number_format($product->price * $qty, 2, ',', '.') }}
+                                        @endif
                                     </td>
+                                    {{-- <td>
+                                    </td> --}}
                                 </tr>
                             </tbody>
                             <tfoot>

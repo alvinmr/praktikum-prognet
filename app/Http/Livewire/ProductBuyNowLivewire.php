@@ -74,7 +74,7 @@ class ProductBuyNowLivewire extends Component
 
     public function sumSubtotal()
     {
-        $this->subtotal += $this->product->price * $this->qty;
+        $this->subtotal += ($this->product->discount ? $this->product->price_discount() : $this->product->price) * $this->qty;
     }
 
     public function sumWeight()
@@ -108,7 +108,7 @@ class ProductBuyNowLivewire extends Component
             'product_id' => $this->product->id,
             'qty' => $this->qty,
             'discount' => 0,
-            'selling_price' => $this->product->price * (1 - 0 / 100)
+            'selling_price' => $this->product->discount ? $this->product->price_discount() : $this->product->price
         ]);
         $this->product->stock -= $this->qty;
         $this->product->save();
