@@ -23,12 +23,15 @@ class ProductBuyNowLivewire extends Component
     public $province;
     public $city;
     public $courier;
+    public $services;
     public $weight;
     public $subtotal;
     public $address;
     public $id_province = '';
     public $id_city = '';
     public $id_courier = '';
+    public $id_service = '';
+    public $serviceChanged = false;
 
     protected $queryString = ['qty'];
 
@@ -56,6 +59,25 @@ class ProductBuyNowLivewire extends Component
         $this->cities = Province::find($this->id_province)->cities;
     }
 
+    public function updatedIdCourier()
+    {
+        $this->services = Http::withHeaders([
+            'key' => env('RAJAONGKIR_KEY'),
+            'content-type' => 'application/x-www-form-urlencoded'
+        ])->asForm()->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => '114',
+            'destination' => $this->id_city,
+            'weight' => $this->weight,
+            'courier' => Courier::find($this->id_courier)->courier
+        ])->json()['rajaongkir']['results'][0]['costs'];
+        $this->serviceChanged = true;
+    }
+
+    public function updatedIdService()
+    {
+        $this->serviceChanged = true;
+    }
+
 
     public function checkCost()
     {
@@ -69,7 +91,8 @@ class ProductBuyNowLivewire extends Component
             'destination' => $this->id_city,
             'weight' => $this->weight,
             'courier' => Courier::find($this->id_courier)->courier
-        ])->json()['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
+        ])->json()['rajaongkir']['results'][0]['costs'][$this->id_service]['cost'][0]['value'];
+        $this->serviceChanged = false;
     }
 
     public function sumSubtotal()

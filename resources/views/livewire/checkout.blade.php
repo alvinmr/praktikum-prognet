@@ -85,12 +85,12 @@
                             </div>
                             <!-- End Basics Accordion -->
                         </div>
-                        @if ($cost != null)
+                        @if ($cost != null && !$serviceChanged)
                             <button wire:click='checkout' type="button"
                                 class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">Place
                                 order</button>
                         @endif
-                        @if ($id_courier != null && $id_city != null && $id_province != null)
+                        @if ($id_courier != null && $id_city != null && $id_province != null && $id_service != null)
                             <button type="button" wire:click='checkCost' wire:target="checkCost"
                                 wire:loading.attr="disabled"
                                 class="btn btn-secondary btn-block btn-pill font-size-20 mb-3 py-3">
@@ -189,26 +189,52 @@
                         </div>
                     @endif
 
-                    <div class="col-md-12">
-                        <!-- Input -->
-                        <div class="js-form-message mb-6">
-                            <label class="form-label">
-                                Courier
-                                <span class="text-danger">*</span>
-                            </label>
-                            <select class="form-control right-dropdown-0-all w-100"
-                                data-style="bg-white font-weight-normal border border-color-1 text-gray-20"
-                                wire:model='id_courier'>
-                                <option value="" selected disabled>Select a Courier</option>
-                                @foreach ($couriers as $courier)
-                                    <option value="{{ $courier->id }}">{{ strtoupper($courier->courier) }}
-                                    </option>
-                                @endforeach
-                            </select>
+                    @if ($id_city)
+                        <div class="col-md-12">
+                            <!-- Input -->
+                            <div class="js-form-message mb-6">
+                                <label class="form-label">
+                                    Courier
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control right-dropdown-0-all w-100"
+                                    data-style="bg-white font-weight-normal border border-color-1 text-gray-20"
+                                    wire:model='id_courier'>
+                                    <option value="" selected disabled>Select a Courier</option>
+                                    @foreach ($couriers as $courier)
+                                        <option value="{{ $courier->id }}">{{ strtoupper($courier->courier) }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
+                            </div>
+                            <!-- End Input -->
                         </div>
-                        <!-- End Input -->
-                    </div>
+                    @endif
+
+                    @if ($id_courier)
+                        <div class="col-md-12">
+                            <!-- Input -->
+                            <div class="js-form-message mb-6">
+                                <label class="form-label">
+                                    Courier Service
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control right-dropdown-0-all w-100"
+                                    data-style="bg-white font-weight-normal border border-color-1 text-gray-20"
+                                    wire:model='id_service'>
+                                    <option value="" selected disabled>Select a Courier Service</option>
+                                    @foreach ($services as $service)
+                                        <option value="{{ $loop->index }}">
+                                            {{ strtoupper($service['service']) . ' (Estimated ' . str_replace('HARI', '', $service['cost'][0]['etd']) . ' days ) ' . ' - ' . number_format($service['cost'][0]['value'], 2, ',', '.') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <!-- End Input -->
+                        </div>
+                    @endif
 
                     <div class="col-md-12">
                         <!-- Input -->
