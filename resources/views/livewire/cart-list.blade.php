@@ -28,8 +28,17 @@
                         </td>
 
                         <td data-title="Price">
-                            <span class="">Rp
-                                {{ number_format($cart->product->price, 2, ',', '.') }}</span>
+                            @if ($cart->product->discount)
+                                <div>
+                                    <ins class="text-red text-decoration-none">Rp.
+                                        {{ number_format($cart->product->price_discount(), 2, ',', '.') }}</ins>
+                                    <del class="tex-gray-6 " style="bottom: 75%">Rp.
+                                        {{ number_format($cart->product->price, 2, ',', '.') }}</del>
+                                </div>
+                            @else
+                                <span class="">Rp
+                                    {{ number_format($cart->product->price, 2, ',', '.') }}</span>
+                            @endif
                         </td>
 
                         <td data-title="Quantity">
@@ -62,7 +71,7 @@
 
                         <td data-title="Total">
                             <span class="">Rp
-                                {{ number_format($cart->product->price * $cart->qty, 2, ',', '.') }}</span>
+                                {{ number_format(($cart->product->discount ? $cart->product->price_discount() : $cart->product->price) * $cart->qty, 2, ',', '.') }}</span>
                         </td>
                     </tr>
                 @empty

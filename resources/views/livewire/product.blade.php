@@ -35,10 +35,20 @@
                                         alt="Image Description"></a>
                             </div>
                             <div class="flex-center-between mb-1">
-                                <div class="prodcut-price">
-                                    <div class="text-gray-100">Rp. {{ number_format($product->price, 2, ',', '.') }}
+                                @if ($product->discount)
+                                    <div class="prodcut-price d-flex align-items-center position-relative">
+                                        <ins class="font-size-20 text-red text-decoration-none">Rp.
+                                            {{ number_format($product->price_discount(), 2, ',', '.') }}</ins>
+                                        <del class="font-size-12 tex-gray-6 position-absolute " style="bottom: 75%">Rp.
+                                            {{ number_format($product->price, 2, ',', '.') }}</del>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="prodcut-price">
+                                        <div class="text-gray-100">Rp.
+                                            {{ number_format($product->price, 2, ',', '.') }}
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="d-none d-xl-block prodcut-add-cart">
                                     <button wire:click="addToCart({{ $product->id }})"
                                         class="btn-add-cart btn-primary transition-3d-hover"><i

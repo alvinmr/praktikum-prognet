@@ -46,6 +46,6 @@ class TransactionController extends Controller
             return abort(404);
         }
         $transaction->delete();
-        return redirect()->route('home');
+        return redirect()->route('my-transaction');
     }
 }

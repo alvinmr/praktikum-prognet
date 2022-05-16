@@ -31,7 +31,7 @@ class CartLivewire extends Component
         $cart = Cart::with('product')->whereUserId(Auth::user()->id)->whereStatus('Dalam Keranjang')->get();
         $this->price_total = 0;
         foreach ($cart as $item) {
-            $this->price_total += $item->product->price * $item->qty;
+            $this->price_total += ($item->product->discount ? $item->product->price_discount() : $item->product->price) * $item->qty;
         }
         $this->cart_count = $cart->count();
     }

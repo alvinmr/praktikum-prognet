@@ -17,6 +17,7 @@ class CheckoutLivewire extends Component
     public $provinces;
     public $cities;
     public $courier;
+    public $services;
     public $carts;
     public $cost = 0;
     public $subtotal = 0;
@@ -25,7 +26,9 @@ class CheckoutLivewire extends Component
     public $id_province = '';
     public $id_city = '';
     public $id_courier = '';
+    public $id_service = '';
     public $list_courier = [];
+    public $serviceChanged = false;
 
     protected $rules = [
         'address' => 'required|min:6',
@@ -46,6 +49,25 @@ class CheckoutLivewire extends Component
         $this->cities = Province::find($this->id_province)->cities;
     }
 
+    public function updatedIdCourier()
+    {
+        $this->services = Http::withHeaders([
+            'key' => env('RAJAONGKIR_KEY'),
+            'content-type' => 'application/x-www-form-urlencoded'
+        ])->asForm()->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => '114',
+            'destination' => $this->id_city,
+            'weight' => $this->weight,
+            'courier' => Courier::find($this->id_courier)->courier
+        ])->json()['rajaongkir']['results'][0]['costs'];
+        $this->serviceChanged = true;
+    }
+
+    public function updatedIdService()
+    {
+        $this->serviceChanged = true;
+    }
+
 
     public function checkCost()
     {
@@ -59,7 +81,9 @@ class CheckoutLivewire extends Component
             'destination' => $this->id_city,
             'weight' => $this->weight,
             'courier' => Courier::find($this->id_courier)->courier
-        ])->json()['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
+        ])->json()['rajaongkir']['results'][0]['costs'][$this->id_service]['cost'][0]['value'];
+
+        $this->serviceChanged = false;
     }
 
     public function sumSubtotal()
@@ -67,7 +91,7 @@ class CheckoutLivewire extends Component
         $cart = Cart::with('product')->whereUserId(auth()->user()->id)->whereStatus('Dalam Keranjang')->get();
         $this->subtotal = 0;
         foreach ($cart as $item) {
-            $this->subtotal += $item->product->price * $item->qty;
+            $this->subtotal += $item->product->discount ? $item->product->price_discount() * $item->qty : $item->product->price * $item->qty;
         }
     }
 
@@ -102,8 +126,8 @@ class CheckoutLivewire extends Component
                 'transaction_id' => $trx->id,
                 'product_id' => $item->product->id,
                 'qty' => $item->qty,
-                'discount' => 0,
-                'selling_price' => $item->product->price * (1 - 0 / 100)
+                'discount' => $item->product->discount->percentage ?? 0,
+                'selling_price' => $item->product->discount ? $item->product->price_discount() : $item->product->price
             ]);
             $item->product->stock -= $item->qty;
             $item->product->save();
