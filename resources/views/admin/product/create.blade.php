@@ -85,7 +85,7 @@
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td><input name="desc" type="text" class="form-control @error('desc') is-invalid @enderror" value="{{ old('desc') }}"/> 
+                                        <td><textarea name="desc" class="form-control @error('desc') is-invalid @enderror">{{old('desc')}}</textarea> 
                                             @error('desc')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

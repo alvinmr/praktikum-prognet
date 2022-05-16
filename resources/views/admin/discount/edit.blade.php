@@ -31,15 +31,9 @@
                                 @csrf
                                 <table class="table table-bordered">
                                     <tr>
-                                        <th>Product</th>
-                                        <td>
-                                            <select name="product[]" multiple class="form-control @error('product') is-invalid @enderror" id="product">
-                                                @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->product_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('product')
+                                        <th>Product</span> </th>
+                                        <td> <input  readonly name="product" type="text" class="form-control @error('product') is-invalid @enderror" value="{{ $discount->product->product_name }}" >
+                                            @error('discount')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

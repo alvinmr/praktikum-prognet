@@ -32,10 +32,6 @@ Product Master
                                 <td>{{$data->product_name}}</td>
                             </tr>
                             <tr>
-                                <th>Description</th>
-                                <td>{{$data->description}}</td>
-                            </tr>
-                            <tr>
                                 <th>Price</th>
                                 <td>Rp.{{ number_format($data->price, 2, ',', '.') }}</td>
                             </tr>
@@ -50,6 +46,10 @@ Product Master
                             <tr>
                                 <th>Product Rate</th>
                                 <td>{{$data->product_rate}}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{$data->description}}</td>
                             </tr>
                         </table>
                     </div>

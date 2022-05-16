@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->bigInteger('price');
-            $table->string('description');
+            $table->text('description');
             $table->float('product_rate');
             $table->integer('stock');
             $table->integer('weight');

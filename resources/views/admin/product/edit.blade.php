@@ -70,7 +70,7 @@
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td><input name="desc" type="text" class="form-control @error('desc') is-invalid @enderror" value="{{$product->description}}" /> 
+                                        <td><textarea name="desc" class="form-control @error('desc') is-invalid @enderror">{{$product->description}}</textarea> 
                                             @error('desc')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
