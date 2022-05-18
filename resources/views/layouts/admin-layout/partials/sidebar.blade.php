@@ -27,6 +27,11 @@
                         <a class="nav-link menu-title" href="{{ route('admin.discount.index') }}"><i
                                 data-feather="dollar-sign"></i><span>Discount CRUD</span></a>
                     </li>
+
+                    <li class="dropdown">
+                        <a class="nav-link menu-title" href="{{ route('admin.transaction.index') }}"><i
+                                data-feather="dollar-sign"></i><span>Transaction CRUD</span></a>
+                    </li>
                     <li class="dropdown">
                         <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
                                 data-feather="anchor"></i><span>Starter kit</span></a>
@@ -49,7 +54,7 @@
                                     Page layout<span class="sub-arrow"><i class="fa fa-chevron-right"></i></span>
                                 </a>
                                 <ul class="nav-sub-childmenu submenu-content"
-                                    style="display: {{ in_array(Route::currentRouteName(), ['boxed','layout-rtl','default-layout','compact-layout','modern-layout'])? 'block': 'none' }};">
+                                    style="display: {{ in_array(Route::currentRouteName(), ['boxed', 'layout-rtl', 'default-layout', 'compact-layout', 'modern-layout']) ? 'block' : 'none' }};">
                                     <li><a href="#" class="#">RTL </a></li>
                                     <li><a href="#" class="#">Default Layout</a></li>
                                     <li><a href="#" class="#">Compact Layout</a></li>
