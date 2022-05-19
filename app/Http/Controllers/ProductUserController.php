@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Notifications\AdminNotification;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class ProductUserController extends Controller
 {
@@ -39,6 +43,15 @@ class ProductUserController extends Controller
             'content' => $request->content,
             'rate' => $request->rating,
         ]);
+
+        $user = Auth::user();
+        $admin = Auth::guard('admin')->user();
+        $dataAdmin = Admin::all();
+        foreach($dataAdmin as $admin){
+            $message = "Hallo ".$admin->username.", user dengan nama ".$user->name." memberikan review terhadap product : ".$product->id;
+            Notification::send($admin, new AdminNotification($message));
+        }
+
         return redirect()->back();
     }
 

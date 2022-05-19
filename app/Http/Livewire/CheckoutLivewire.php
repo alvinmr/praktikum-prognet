@@ -2,13 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\City;
 use App\Models\Courier;
 use App\Models\Province;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Notifications\AdminNotification;
+use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -133,6 +137,14 @@ class CheckoutLivewire extends Component
             $item->product->save();
         }
         Cart::whereUserId(auth()->user()->id)->whereStatus('Dalam Keranjang')->delete();
+        $user = Auth::user();
+        $admin = Auth::guard('admin')->user();
+        $dataAdmin = Admin::all();
+        foreach($dataAdmin as $admin){
+            $message = "Hallo ".$admin->username.", terdapat transaksi baru dari user dengan nama :".$user->name;
+            Notification::send($admin, new AdminNotification($message));
+        }
+
         return redirect()->route('payment', $trx->id);
     }
 }

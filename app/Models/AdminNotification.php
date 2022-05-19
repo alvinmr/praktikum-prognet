@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserNotification extends Model
+class AdminNotification extends Model
 {
-    protected $table = 'user_notifications';
+    protected $table = 'admin_notifications';
     protected $guarded = [];
 }
