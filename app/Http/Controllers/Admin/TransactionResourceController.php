@@ -36,7 +36,7 @@ class TransactionResourceController extends Controller
         ]);
 
         $user = User::find($transaction->user_id);
-        $message = "Hallo ".$user->name.", transaksi dengan ID : ".$transaction->id. " sedang dikirim oleh Pihak Toko";
+        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " sedang dikirim oleh Pihak Toko";
 
         Notification::send($user, new UserNotification($message));
 
@@ -50,7 +50,7 @@ class TransactionResourceController extends Controller
         ]);
 
         $user = User::find($transaction->user_id);
-        $message = "Hallo ".$user->name.", transaksi dengan ID : ".$transaction->id. " telah sampai pada tujuan lokasi Anda";
+        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " telah sampai pada tujuan lokasi Anda";
 
         Notification::send($user, new UserNotification($message));
 

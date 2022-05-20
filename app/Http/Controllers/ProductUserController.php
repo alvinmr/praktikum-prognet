@@ -48,7 +48,7 @@ class ProductUserController extends Controller
         $admin = Auth::guard('admin')->user();
         $dataAdmin = Admin::all();
         foreach($dataAdmin as $admin){
-            $message = "Hallo ".$admin->username.", user dengan nama ".$user->name." memberikan review terhadap product : ".$product->id;
+            $message = "Hallo ".$admin->username.", user dengan nama ".$user->name." memberikan review terhadap product : ".$product->product_name;
             Notification::send($admin, new AdminNotification($message));
         }
 

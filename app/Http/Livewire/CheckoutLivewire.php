@@ -141,7 +141,7 @@ class CheckoutLivewire extends Component
         $admin = Auth::guard('admin')->user();
         $dataAdmin = Admin::all();
         foreach($dataAdmin as $admin){
-            $message = "Hallo ".$admin->username.", terdapat transaksi baru dari user dengan nama :".$user->name;
+            $message = "Hallo ".$admin->username.", terdapat transaksi baru dari user dengan nama : ".$user->name;
             Notification::send($admin, new AdminNotification($message));
         }
 
