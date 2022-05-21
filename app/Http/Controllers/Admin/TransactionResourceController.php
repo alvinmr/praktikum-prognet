@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Notifications\UserNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionResourceController extends Controller
 {
@@ -30,6 +34,12 @@ class TransactionResourceController extends Controller
         $transaction->update([
             'status' => 'Dalam Pengiriman'
         ]);
+
+        $user = User::find($transaction->user_id);
+        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " sedang dikirim oleh Pihak Toko";
+
+        Notification::send($user, new UserNotification($message));
+
         return redirect()->route('admin.transaction.index')->with('success', 'Transaction has been accepted');
     }
 
@@ -38,6 +48,12 @@ class TransactionResourceController extends Controller
         $transaction->update([
             'status' => 'Telah Sampai'
         ]);
+
+        $user = User::find($transaction->user_id);
+        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " telah sampai pada tujuan lokasi Anda";
+
+        Notification::send($user, new UserNotification($message));
+
         return redirect()->route('admin.transaction.index')->with('success', 'Transaction has been shipped');
     }
 

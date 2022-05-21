@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ProductResourceController;
 use App\Http\Controllers\Admin\CourierController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderUserController;
 use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard.index')->name('index');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+        Route::get('/markNotifAdmin', [AdminController::class, 'markNotifications'])->name('mark-notifications');
 
         Route::resource('/product', ProductResourceController::class);
         Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
@@ -68,6 +72,8 @@ Route::get('product/{product}', [ProductUserController::class, 'show'])->name('p
 // Ini route yang bisa diakses kalo udah login dari user
 Route::middleware('auth')->group(function () {
     Route::view('cart', 'user.cart.index')->name('cart');
+    Route::get('/markNotifUser', [UserController::class, 'markNotifications'])->name('user.mark-notifications');
+
     Route::middleware('verified')->group(function () {
         Route::get('product/{product}/buy-now', [ProductUserController::class, 'buyNow'])->name('product.buynow');
         Route::post('product/{product}/review', [ProductUserController::class, 'storeReview'])->name('review.store');

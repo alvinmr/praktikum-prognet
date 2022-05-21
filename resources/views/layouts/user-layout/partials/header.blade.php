@@ -140,7 +140,42 @@
                         <!-- End Nav -->
                     </div>
                     <!-- End Primary Menu -->
-                    <!-- Customer Care -->
+                    @auth
+                        <div class="d-navbar-mini-cart navbar-nav animate-dropdown nav pull-right flip">
+                            <li class="nav-item dropdown" >
+                                <a class="nav-link" data-toggle="dropdown" href="#">
+                                    <i class="far fa-bell fa-2x"></i>
+                                    @if (Auth::user()->notifications->where('read_at',null)->count() != null)
+                                        <span class="badge badge-warning navbar-badge">{{Auth::user()->notifications->where('read_at',null)->count() }}</span>
+                                    @endif
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" >
+                                    <span class="dropdown-item dropdown-header p-2 ml-2">User Notifications</span>
+                                    @forelse (Auth::user()->notifications->where('read_at',null) as $data)
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">
+                                            {{$data->data}}
+                                            <div class="my-2">
+                                                <span class="text-muted text-sm">{{$data->created_at->diffForHumans()}}</span>
+                                            </div>
+                                        </a>
+                                    @empty
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">
+                                            Belum Terdapat Notifikasi
+                                        </a>
+                                    @endforelse
+                                    @if (Auth::user()->notifications->where('read_at',null)->count() != 0)
+                                        <div class="dropdown-divider"></div>
+                                        <a href="{{route('user.mark-notifications')}}" class="dropdown-item dropdown-footer">Baca Semua Notifications</a>
+                                    @endif
+
+                                </div>
+                            </li>
+                        </div>
+                    @endauth
+
+                    {{-- <!-- Customer Care -->
                     <div class="d-none d-xl-block col-md-auto">
                         <div class="d-flex">
                             <i class="ec ec-support font-size-50 text-primary"></i>
@@ -155,7 +190,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- End Customer Care -->
                     <!-- Header Icons -->
                     <div class="d-xl-none col col-xl-auto text-right text-xl-left pl-0 pl-xl-3 position-static">
