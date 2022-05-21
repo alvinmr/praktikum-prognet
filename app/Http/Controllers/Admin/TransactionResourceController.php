@@ -36,7 +36,7 @@ class TransactionResourceController extends Controller
         ]);
 
         $user = User::find($transaction->user_id);
-        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " sedang dikirim oleh Pihak Toko";
+        $message = "Hallo " . $user->name . ", transaksi dengan produk" . $transaction->products[0]->product_name . " sedang dikirim oleh Pihak Toko";
 
         Notification::send($user, new UserNotification($message));
 
@@ -50,11 +50,23 @@ class TransactionResourceController extends Controller
         ]);
 
         $user = User::find($transaction->user_id);
-        $message = "Hallo ".$user->name.", transaksi dengan produk".$transaction->products[0]->product_name. " telah sampai pada tujuan lokasi Anda";
+        $message = "Hallo " . $user->name . ", transaksi dengan produk" . $transaction->products[0]->product_name . " telah sampai pada tujuan lokasi Anda";
 
         Notification::send($user, new UserNotification($message));
 
         return redirect()->route('admin.transaction.index')->with('success', 'Transaction has been shipped');
+    }
+
+
+    public function cancelTransaction(Transaction $transaction)
+    {
+        if (auth()->user()->id !== $transaction->user_id) {
+            return abort(404);
+        }
+        $transaction->update([
+            'status' => 'Dibatalkan'
+        ]);
+        return redirect()->route('admin.transaction.index')->with('success', 'Transaction has been cancelled');
     }
 
     /**

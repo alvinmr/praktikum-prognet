@@ -35,6 +35,7 @@
                                         <th>Nama</th>
                                         <th>Harga</th>
                                         <th>Stok</th>
+                                        <th>Reviews</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -45,9 +46,12 @@
                                             <td>{{ $product->product_name }}</td>
                                             <td>Rp.{{ number_format($product->price, 2, ',', '.') }}</td>
                                             <td>{{ $product->stock }}</td>
+                                            <td>{{ $product->reviews()->count() }}</td>
                                             <td>
                                                 <a href="{{ url('admin/product/' . $product->id) }}"
                                                     class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ url('admin/product/' . $product->id . '/reviews') }}"
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-comment"></i></a>
                                                 <a href="{{ url('admin/product/' . $product->id . '/edit') }}"
                                                     class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a onclick="return confirm('Apakah anda yakin untuk menghapus data product?')"

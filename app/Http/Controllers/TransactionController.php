@@ -44,8 +44,8 @@ class TransactionController extends Controller
         $user = Auth::user();
         $admin = Auth::guard('admin')->user();
         $dataAdmin = Admin::all();
-        foreach($dataAdmin as $admin){
-            $message = "Hallo ".$admin->username.", user dengan nama ".$user->name." telah berhasil mengupload bukti pembayaran dari Transaksi dengan produk yang dibeli yaitu ".$transaction->products[0]->product_name;
+        foreach ($dataAdmin as $admin) {
+            $message = "Hallo " . $admin->username . ", user dengan nama " . $user->name . " telah berhasil mengupload bukti pembayaran dari Transaksi dengan produk yang dibeli yaitu " . $transaction->products[0]->product_name;
             Notification::send($admin, new AdminNotification($message));
         }
 

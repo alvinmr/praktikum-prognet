@@ -43,6 +43,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/product/{id}/deleteImage', [ProductResourceController::class, 'destroyImage']);
         Route::post('/product/{product}/deleteCategory', [ProductResourceController::class, 'destroyCategory'])->name('product.delete-category');
         Route::get('/product/{id}/delete', [ProductResourceController::class, 'destroy']);
+        Route::get('/product/{id}/reviews', [ProductResourceController::class, 'listReviewProduct'])->name('product.reviews');
+        Route::post('/product/{id}/review-response', [ProductResourceController::class, 'responseReview'])->name('product.review-response');
 
 
         Route::resource('/productcategory', ProductCategoryController::class);
@@ -57,6 +59,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('transaction', TransactionResourceController::class);
         Route::post('transaction/{transaction}/accept', [TransactionResourceController::class, 'acceptPayment'])->name('transaction.accept');
         Route::post('transaction/{transaction}/shipped', [TransactionResourceController::class, 'updateShipped'])->name('transaction.shipped');
+        Route::post('transaction/{transaction}/cancel', [TransactionResourceController::class, 'cancelTransaction'])->name('transaction.cancel');
     });
     // Ini route yang bisa diakses kalo belom login admin, kalo udah login gabisa akses route ini
     Route::middleware('guest:admin')->group(function () {

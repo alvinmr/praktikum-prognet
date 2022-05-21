@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('review_id')->constrained('product_reviews');
             $table->foreignId('admin_id')->constrained('admins');
-            $table->integer('content');
+            $table->string('content');
             $table->timestamps();
         });
     }
