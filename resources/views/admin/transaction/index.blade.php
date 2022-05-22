@@ -52,43 +52,58 @@
                                             <td>{{ number_format($transaction->total, 2, ',', '.') }}</td>
                                             <td class="justify-content-center">
                                                 <div class="mb-2">
-                                                    <a data-bs-toggle="modal"
-                                                        data-bs-target="#product--{{ $transaction->id }}"
-                                                        class="btn btn-info btn-xs">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
+                                                    @if ($transaction->status != 'Dibatalkan' && $transaction->status != 'Telah Sampai')
+                                                        <form
+                                                            action="{{ route('admin.transaction.cancel', $transaction->id) }}"
+                                                            method="post" id="form-cancel-transaction">
+                                                            @csrf
+                                                            <a onclick="if(confirm('Apakah kamu yakin ingin membatalkan transaksi ini?')){return document.getElementById('form-cancel-transaction').submit()}"
+                                                                class="btn btn-danger btn-xs" data-bs-placement="top"
+                                                                title="Cancel Transaction">
+                                                                <i class="fa fa-ban"></i>
+                                                            </a>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                                 <div class="mb-2">
-                                                    <a data-bs-toggle="modal"
-                                                        data-bs-target="#proof--{{ $transaction->id }}"
-                                                        class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-file-photo-o"></i>
-                                                    </a>
-                                                </div>
-                                                @if ($transaction->status == 'Pending')
-                                                    <form
-                                                        action="{{ route('admin.transaction.accept', $transaction->id) }}"
-                                                        method="post" id="form-acc">
-                                                        @csrf
-                                                        <a onclick="document.getElementById('form-acc').submit()"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Accept Payment" class="btn btn-success btn-xs">
-                                                            <i class="fa fa-check"></i>
+                                                    <div class="mb-2">
+                                                        <a data-bs-toggle="modal"
+                                                            data-bs-target="#product--{{ $transaction->id }}"
+                                                            class="btn btn-info btn-xs">
+                                                            <i class="fa fa-eye"></i>
                                                         </a>
-                                                    </form>
-                                                @endif
-                                                @if ($transaction->status == 'Dalam Pengiriman')
-                                                    <form
-                                                        action="{{ route('admin.transaction.shipped', $transaction->id) }}"
-                                                        method="post" id="form-shipped">
-                                                        @csrf
-                                                        <a onclick="document.getElementById('form-shipped').submit()"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Has Shipped" class="btn btn-warning btn-xs">
-                                                            <i class="fa fa-truck"></i>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <a data-bs-toggle="modal"
+                                                            data-bs-target="#proof--{{ $transaction->id }}"
+                                                            class="btn btn-primary btn-xs">
+                                                            <i class="fa fa-file-photo-o"></i>
                                                         </a>
-                                                    </form>
-                                                @endif
+                                                    </div>
+                                                    @if ($transaction->status == 'Pending')
+                                                        <form
+                                                            action="{{ route('admin.transaction.accept', $transaction->id) }}"
+                                                            method="post" id="form-acc">
+                                                            @csrf
+                                                            <a onclick="document.getElementById('form-acc').submit()"
+                                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                title="Accept Payment" class="btn btn-success btn-xs">
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+                                                        </form>
+                                                    @endif
+                                                    @if ($transaction->status == 'Dalam Pengiriman')
+                                                        <form
+                                                            action="{{ route('admin.transaction.shipped', $transaction->id) }}"
+                                                            method="post" id="form-shipped">
+                                                            @csrf
+                                                            <a onclick="document.getElementById('form-shipped').submit()"
+                                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                title="Has Shipped" class="btn btn-warning btn-xs">
+                                                                <i class="fa fa-truck"></i>
+                                                            </a>
+                                                        </form>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -122,6 +137,7 @@
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Discount</th>
+                                        <th>Price After Discount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,6 +149,8 @@
                                             </td>
                                             <td>{{ $product->pivot->qty }}</td>
                                             <td>{{ $product->pivot->discount }}%</td>
+                                            <td>{{ number_format((1 - $product->pivot->discount / 100) * $product->price, 2, ',', '.') }}
+                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach

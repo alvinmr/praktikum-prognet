@@ -303,6 +303,15 @@
                                     - {{ $review->created_at->diffForHumans() }}
                                 </span>
                             </div>
+                            @if ($review->response()->exists())
+                                <div class="ml-5 mt-5">
+                                    <p class="text-gray-90">{{ $review->response->content }}</p>
+                                    <strong>{{ $review->response->admin->name }}</strong>
+                                    <span class="font-size-13 text-gray-23">
+                                        - {{ $review->response->created_at->diffForHumans() }}
+                                    </span>
+                                </div>
+                            @endif
                             <!-- End Reviewer -->
                         </div>
                     @endforeach

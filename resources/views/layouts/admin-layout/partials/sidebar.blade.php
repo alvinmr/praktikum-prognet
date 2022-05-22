@@ -32,37 +32,6 @@
                         <a class="nav-link menu-title" href="{{ route('admin.transaction.index') }}"><i
                                 data-feather="dollar-sign"></i><span>Transaction CRUD</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a class="nav-link menu-title {{ prefixActive('/starter-kit') }}" href="javascript:void(0)"><i
-                                data-feather="anchor"></i><span>Starter kit</span></a>
-                        <ul class="nav-submenu menu-content" style="display: {{ prefixBlock('/starter-kit') }};">
-                            <li>
-                                <a class="submenu-title" href="javascript:void(0)">
-                                    Color Version<span class="sub-arrow"><i class="fa fa-chevron-right"></i></span>
-                                </a>
-                                <ul class="nav-sub-childmenu submenu-content"
-                                    style="display: {{ in_array(Route::currentRouteName(), ['index', 'layout-dark']) ? 'block' : 'none' }};">
-                                    <li><a href="{{ route('admin.index') }}"
-                                            class="{{ routeActive('index') }}">Layout
-                                            Light</a></li>
-                                    <li><a href="#" class="{{ routeActive('layout-dark') }}">Layout Dark</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="submenu-title {{ in_array(Route::currentRouteName(), ['boxed', 'layout-rtl']) ? 'active' : '' }}"
-                                    href="javascript:void(0)">
-                                    Page layout<span class="sub-arrow"><i class="fa fa-chevron-right"></i></span>
-                                </a>
-                                <ul class="nav-sub-childmenu submenu-content"
-                                    style="display: {{ in_array(Route::currentRouteName(), ['boxed', 'layout-rtl', 'default-layout', 'compact-layout', 'modern-layout']) ? 'block' : 'none' }};">
-                                    <li><a href="#" class="#">RTL </a></li>
-                                    <li><a href="#" class="#">Default Layout</a></li>
-                                    <li><a href="#" class="#">Compact Layout</a></li>
-                                    <li><a href="#" class="#">Modern Layout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> --}}
                 </ul>
             </div>
         </div>

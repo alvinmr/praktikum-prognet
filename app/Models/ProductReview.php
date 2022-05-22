@@ -20,4 +20,9 @@ class ProductReview extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function response()
+    {
+        return $this->hasOne(Response::class, 'review_id');
+    }
 }

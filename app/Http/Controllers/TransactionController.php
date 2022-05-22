@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
+use App\Notifications\AdminNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class TransactionController extends Controller
@@ -36,6 +40,15 @@ class TransactionController extends Controller
             'proof_of_payment' => $imageName,
             'status' => 'Pending',
         ]);
+
+        $user = Auth::user();
+        $admin = Auth::guard('admin')->user();
+        $dataAdmin = Admin::all();
+        foreach ($dataAdmin as $admin) {
+            $message = "Hallo " . $admin->username . ", user dengan nama " . $user->name . " telah berhasil mengupload bukti pembayaran dari Transaksi dengan produk yang dibeli yaitu " . $transaction->products[0]->product_name;
+            Notification::send($admin, new AdminNotification($message));
+        }
+
 
         return redirect()->route('payment', $transaction);
     }
