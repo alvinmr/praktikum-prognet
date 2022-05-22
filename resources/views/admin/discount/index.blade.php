@@ -48,8 +48,6 @@
                                             <td>{{ $discount->start}}</td>
                                             <td>{{ $discount->end }}</td>
                                             <td>
-                                                <a href="{{ url('admin/discount/' . $discount->id) }}"
-                                                    class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                                 <a href="{{ url('admin/discount/' . $discount->id . '/edit') }}"
                                                     class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a onclick="return confirm('Apakah anda yakin untuk menghapus data discount?')"

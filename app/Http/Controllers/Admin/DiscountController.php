@@ -92,7 +92,15 @@ class DiscountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $discount =([
+            'percentage' => $request->discount,
+            'start' => $request->start,
+            'end' => $request->end
+        ]);
+
+        Discount::where('id',$id)->update($discount);
+
+        return redirect('/admin/discount')->with('success','Discount has been edited.');
     }
 
     /**
