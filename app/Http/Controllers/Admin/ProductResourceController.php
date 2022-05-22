@@ -10,9 +10,14 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductCategoryDetail;
 use App\Models\ProductImage;
+use App\Models\ProductReview;
 use App\Models\Response;
+use App\Models\User;
+use App\Notifications\UserNotification;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+
 
 
 class ProductResourceController extends Controller
@@ -242,6 +247,13 @@ class ProductResourceController extends Controller
             'admin_id' => auth()->user('admin')->id,
             'content' => $request->content
         ]);
+
+        $productReview = ProductReview::with('product')->findOrFail($id);
+        $user = User::find($productReview->user_id);
+        $message = "Hallo " . $user->name . ", ulasan pada produk " . $productReview->product->product_name . " telah tanggapi oleh Admin Toko";
+
+        Notification::send($user, new UserNotification($message));
+
         return redirect()->back()->with('success', 'Response berhasil ditambahkan.');
     }
 }
