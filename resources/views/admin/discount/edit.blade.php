@@ -22,13 +22,14 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Create Data Discount</h5>
+                        <h5>Edit Data Discount</h5>
                         <a href="{{ url('admin/discount') }}" class="float-right btn btn-success btn-sm">Back!</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <form method="post" enctype="multipart/form-data" action="{{ route('admin.discount.update',$discount) }}">
                                 @csrf
+                                @method('put')
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Product</span> </th>
@@ -52,7 +53,8 @@
                                     </tr>
                                     <tr>
                                         <th>Start Time</span> </th>
-                                        <td> <input name="start" type="datetime-local" class="form-control @error('start') is-invalid @enderror" value="{{ $discount->start }}">
+                                        <td>
+                                            <input name="start" type="datetime-local" class="form-control @error('start') is-invalid @enderror" value="{{date('Y-m-d\TH:i:s', strtotime($discount->start))}}">
                                             @error('start')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -62,7 +64,8 @@
                                     </tr>
                                     <tr>
                                         <th>End Time</span> </th>
-                                        <td> <input name="end" type="datetime-local" class="form-control @error('end') is-invalid @enderror" value="{{ $discount->end }}">
+                                        <td> 
+                                            <input name="end" type="datetime-local" class="form-control @error('end') is-invalid @enderror" value="{{date('Y-m-d\TH:i:s', strtotime($discount->end))}}">
                                             @error('end')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
