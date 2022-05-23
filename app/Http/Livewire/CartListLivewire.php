@@ -3,13 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Cart;
-use App\Models\City;
 use App\Models\Courier;
 use App\Models\Province;
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class CartListLivewire extends Component

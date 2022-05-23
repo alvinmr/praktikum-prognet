@@ -58,7 +58,9 @@ class TransactionController extends Controller
         if (auth()->user()->id !== $transaction->user_id) {
             return abort(404);
         }
-        $transaction->delete();
+        $transaction->update([
+            'status' => 'Dibatalkan'
+        ]);
         return redirect()->route('my-transaction');
     }
 }
