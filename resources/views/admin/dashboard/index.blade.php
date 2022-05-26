@@ -52,6 +52,7 @@ Dashboard
                 </div>
             </div>
         </div>
+        @livewire('chartdashboard')
     </div>
 </div>
 
