@@ -76,8 +76,10 @@
     </div>
     <!-- latest jquery-->
 
+    
 
     <script type="text/javascript">
+        
         // localStorage.clear();
 
         var div = document.querySelector("div.page-wrapper")
@@ -94,8 +96,10 @@
     </script>
 
     @include('layouts.admin-layout.partials.js')
+    
+    @yield('script-tambahan')
     @livewireScripts
-
+    @stack('scripts')
 </body>
 
 </html>

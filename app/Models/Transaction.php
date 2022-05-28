@@ -26,4 +26,8 @@ class Transaction extends Model
     {
         return $this->belongsToMany(Product::class, 'transaction_details')->withPivot(['qty', 'selling_price', 'discount']);
     }
+
+    public function transaction_details(){
+        return $this->hasMany('App\Models\TransactionDetail');
+    }
 }

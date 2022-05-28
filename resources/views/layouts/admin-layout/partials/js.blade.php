@@ -10,8 +10,16 @@
 <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
 <!-- Plugins JS start-->
 <script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 @stack('scripts')
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets/js/script.js') }}"></script>
+
+
+
+
 <!-- Plugin used-->
