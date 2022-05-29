@@ -14,6 +14,25 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        ProductCategory::factory()->count(10)->create();
+        ProductCategory::insert([
+            [
+                'category_name' => 'Air Cooling',
+            ],
+            [
+                'category_name' => 'Vacum Cleaner',
+            ],
+            [
+                'category_name' => 'Water Pump',
+            ],
+            [
+                'category_name' => 'Water Dispener',
+            ],
+            [
+                'category_name' => 'Water Heater',
+            ],
+            [
+                'category_name' => 'Air Conditioner',
+            ]
+        ]);
     }
 }
