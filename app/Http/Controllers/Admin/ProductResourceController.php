@@ -54,6 +54,7 @@ class ProductResourceController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
@@ -61,7 +62,6 @@ class ProductResourceController extends Controller
             'stock' => 'required|numeric',
             'weight' => 'required|numeric',
             'categories' => 'required',
-            'product' => 'required',
         ]);
 
         $product = Product::create([
@@ -83,9 +83,13 @@ class ProductResourceController extends Controller
 
         // Query product images
         foreach ($request->product as $image_product) {
+            $name = 'product_' . time() . '.' . $image_product->getClientOriginalExtension();
+            $destinationPath = public_path('/assets/images/product-images');
+            $image_product->move($destinationPath, $name);
+
             ProductImage::create([
                 'product_id' => $product->id,
-                'image_name' => $image_product
+                'image_name' => '/assets/images/product-images/' . $name
             ]);
         }
 
@@ -177,13 +181,14 @@ class ProductResourceController extends Controller
 
     public function uploadImage(Request $request)
     {
-        foreach ($request->file('product') as $product_image) {
-            $name = 'product_' . time() . '.' . $product_image->getClientOriginalExtension();
-            $destinationPath = public_path('/assets/images/product-images');
-            $product_image->move($destinationPath, $name);
+        if ($request->hasFile('product')) {
+            foreach ($request->file('product') as $product_image) {
+                $name = 'product_' . time() . '.' . $product_image->getClientOriginalExtension();
+                $destinationPath = public_path('/assets/images/product-images');
+                $product_image->move($destinationPath, $name);
+            }
+            return '/assets/images/product-images/' . $name;
         }
-
-        return '/assets/images/product-images/' . $name;
     }
 
     public function revertImage(Request $request)

@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="data-transaksi" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -192,18 +192,7 @@
         <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#dataTable').DataTable({
-                    "drawCallback": function() {
-                        var tooltipTriggerList = [].slice.call(document.querySelectorAll(
-                            '[data-bs-toggle="tooltip"]'))
-                        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                            return new bootstrap.Tooltip(tooltipTriggerEl, {
-                                container: 'body'
-                            })
-                        })
-
-                    }
-                });
+                $('#data-transaksi').DataTable();
             });
         </script>
     @endpush

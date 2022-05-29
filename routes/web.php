@@ -36,7 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/markNotifAdmin', [AdminController::class, 'markNotifications'])->name('mark-notifications');
 
         Route::resource('/product', ProductResourceController::class);
-        Route::post('/product/images', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
+        Route::post('/product-images/upload', [ProductResourceController::class, 'uploadImage'])->name('product.images.upload');
         Route::delete('/product/images/delete', [ProductResourceController::class, 'revertImage'])->name('product.images.revert');
         Route::post('/product/{id}/category/', [ProductResourceController::class, 'addCategory'])->name('product.category.add');
         Route::post('/product/{id}/image/', [ProductResourceController::class, 'addImage'])->name('product.image.add');

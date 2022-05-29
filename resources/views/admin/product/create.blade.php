@@ -24,72 +24,83 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.store') }}">
+                            <form method="post" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Product Name</th>
-                                        <td><input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"/>
+                                        <td><input name="name" type="text"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                value="{{ old('name') }}" />
                                             @error('name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Product Category</th>
                                         <td>
-                                            <select name="categories[]" multiple class="form-control @error('categories') is-invalid @enderror" id="category">
+                                            <select name="categories[]" multiple
+                                                class="form-control @error('categories') is-invalid @enderror"
+                                                id="category">
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->category_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                             @error('categories')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Price</span> </th>
-                                        <td> <input name="price" type="text" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
+                                        <td> <input name="price" type="text"
+                                                class="form-control @error('price') is-invalid @enderror"
+                                                value="{{ old('price') }}">
                                             @error('price')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Stock</span> </th>
-                                        <td> <input name="stock" type="number" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}">
+                                        <td> <input name="stock" type="number"
+                                                class="form-control @error('stock') is-invalid @enderror"
+                                                value="{{ old('stock') }}">
                                             @error('stock')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Weight</span> </th>
-                                        <td> <input name="weight" type="number" class="form-control @error('weight') is-invalid @enderror" value="{{ old('weight') }}">
+                                        <td> <input name="weight" type="number"
+                                                class="form-control @error('weight') is-invalid @enderror"
+                                                value="{{ old('weight') }}">
                                             @error('weight')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td><textarea name="desc" class="form-control @error('desc') is-invalid @enderror">{{old('desc')}}</textarea> 
+                                        <td>
+                                            <textarea name="desc" class="form-control @error('desc') is-invalid @enderror">{{ old('desc') }}</textarea>
                                             @error('desc')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </td>
                                     </tr>
@@ -97,13 +108,13 @@
                                         <th>Product Picture</th>
                                         <td>
                                             <div>
-                                                <input type="file" multiple name="product[]" class="form-control @error('product') is-invalid @enderror"
-                                                    id="product-images" />
-                                                    @error('product')
+                                                <input type="file" multiple name="product[]"
+                                                    class="form-control @error('product') is-invalid @enderror" />
+                                                @error('product')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </td>
                                     </tr>
@@ -151,21 +162,26 @@
 
             // filepond
             FilePond.registerPlugin(FilePondPluginFileValidateType);
-            FilePond.registerPlugin(
-                FilePondPluginFileValidateSize);
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
             FilePond.registerPlugin(FilePondPluginImagePreview);
-            const post = FilePond.create(document.querySelector('#product-images'));
-            post.setOptions({
+            FilePond.create(document.querySelector('#product-images'));
+            FilePond.setOptions({
                 server: {
                     process: {
-                        url: '{{ route('admin.product.images.upload') }}',
+                        url: "{{ route('admin.product.images.upload') }}",
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        onload: (response) => {
+                            console.log(response);
+                        },
+                        onerror: (response) => {
+                            console.log(response);
                         }
                     },
                     revert: {
-                        url: '{{ route('admin.product.images.revert') }}',
+                        url: "{{ route('admin.product.images.revert') }}",
                         method: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
